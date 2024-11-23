@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Refrigerantes.Model;
 
 [Table("Refrigerante")]
-public partial class Refrigerante
+public partial class Refrigerante 
 {
     [Key]
     [Column("refrigerante_id")]
@@ -30,4 +30,7 @@ public partial class Refrigerante
 
     [InverseProperty("Refrigerante")]
     public virtual ICollection<Equipo> Equipos { get; set; } = new List<Equipo>();
+
+   
+   
 }
