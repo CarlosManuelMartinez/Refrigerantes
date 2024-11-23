@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Refrigerantes.Model;
 
 [Table("Instalacion")]
-public partial class Instalacion : IDisposable
+public partial class Instalacion
 {
     [Key]
     [Column("instalacion_id")]
@@ -34,53 +34,5 @@ public partial class Instalacion : IDisposable
 
     [InverseProperty("Instalacion")]
     public virtual ICollection<Equipo> Equipos { get; set; } = new List<Equipo>();
-
-    bool disposed;
-
-    public Instalacion()
-    {
-        disposed = true;
-    }
-
-
-    public Instalacion(int instalacionId, int clienteId, string nombre, string direccion, string horario, Cliente cliente, ICollection<Equipo> equipos)
-    {
-        InstalacionId = instalacionId;
-        ClienteId = clienteId;
-        Nombre = nombre;
-        Direccion = direccion;
-        Horario = horario;
-        Cliente = cliente;
-        Equipos = equipos;
-    }
-
-    public Instalacion(int instalacionId, int clienteId, string nombre, string direccion, string horario)
-    {
-        InstalacionId = instalacionId;
-        ClienteId = clienteId;
-        Nombre = nombre;
-        Direccion = direccion;
-        Horario = horario;
-    }
-
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
-    }
-
-    // Protected implementation of Dispose pattern.
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposed)
-            return;
-
-        if (disposing)
-        {
-            // Free any other managed objects here.
-            //Liberar recursos no manejados como ficheros, conexiones a bd, etc.
-        }
-
-        disposed = true;
-    }
+    
 }

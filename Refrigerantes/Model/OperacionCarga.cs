@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Refrigerantes.Model;
 
 [Table("Operacion_carga")]
-public partial class OperacionCarga: IDisposable
+public partial class OperacionCarga
 {
     [Key]
     [Column("operacion_carga_id")]
@@ -39,60 +39,4 @@ public partial class OperacionCarga: IDisposable
     [ForeignKey("OperarioId")]
     [InverseProperty("OperacionCargas")]
     public virtual Operario Operario { get; set; } = null!;
-
-    bool disposed;
-
-    public OperacionCarga()
-    {
-        disposed = true;
-    }
-
-    public OperacionCarga(int operacionCargaId, int operarioId, int equipoId,
-        DateTime fechaOperacion, string descripcion, decimal refrigeranteManipulado,
-        bool recuperacion, Equipo equipo, Operario operario)
-    {
-        OperacionCargaId = operacionCargaId;
-        OperarioId = operarioId;
-        EquipoId = equipoId;    
-        FechaOperacion = fechaOperacion;
-        Descripcion = descripcion;
-        RefrigeranteManipulado = refrigeranteManipulado;
-        Recuperacion = recuperacion;
-        Equipo = equipo;
-        Operario = operario;
-    }
-
-    public OperacionCarga(int operacionCargaId, int operarioId, int equipoId,
-        DateTime fechaOperacion, string descripcion, decimal refrigeranteManipulado,
-        bool recuperacion)
-    {
-        OperacionCargaId = operacionCargaId;
-        OperarioId = operarioId;
-        EquipoId = equipoId;
-        FechaOperacion = fechaOperacion;
-        Descripcion = descripcion;
-        RefrigeranteManipulado = refrigeranteManipulado;
-        Recuperacion = recuperacion;
-    }
-
-
-
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposed)
-            return;
-
-        if (disposing)
-        {
-            //Liberar recursos no manejados como ficheros, conexiones a bd, etc.
-        }
-
-        disposed = true;
-    }
 }

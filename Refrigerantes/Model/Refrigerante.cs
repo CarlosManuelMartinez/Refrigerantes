@@ -30,7 +30,5 @@ public partial class Refrigerante
 
     [InverseProperty("Refrigerante")]
     public virtual ICollection<Equipo> Equipos { get; set; } = new List<Equipo>();
-
-   
    
 }

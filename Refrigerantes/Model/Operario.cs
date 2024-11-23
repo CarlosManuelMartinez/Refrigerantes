@@ -8,7 +8,7 @@ namespace Refrigerantes.Model;
 
 [Table("Operario")]
 [Index("Dni", Name = "UQ_Operario_DNI", IsUnique = true)]
-public partial class Operario : IDisposable
+public partial class Operario 
 {
     [Key]
     [Column("operario_id")]
@@ -48,62 +48,5 @@ public partial class Operario : IDisposable
     [InverseProperty("Operario")]
     public virtual ICollection<OperacionCarga> OperacionCargas { get; set; } = new List<OperacionCarga>();
     bool disposed;
-
-    public Operario()
-    {
-        disposed = false;
-    }
-
-    public Operario(int operarioId, string dni, string nombre,
-        string apellido1, string? apellido2, string email,
-        string password, int categoriaProfesionalId,
-        CategoriaProfesional categoriaProfesional, 
-        ICollection<OperacionCarga> operacionCargas)
-    {
-        OperarioId = operarioId;
-        Dni = dni;
-        Nombre = nombre;
-        Apellido1 = apellido1;
-        Apellido2 = apellido2;
-        Email = email;
-        Password = password;
-        CategoriaProfesionalId = categoriaProfesionalId;
-        CategoriaProfesional = categoriaProfesional;
-        OperacionCargas = operacionCargas;
-    }
-
-    public Operario(int operarioId, string dni, string nombre,
-       string apellido1, string? apellido2, string email,
-       string password, int categoriaProfesionalId)
-    {
-        OperarioId = operarioId;
-        Dni = dni;
-        Nombre = nombre;
-        Apellido1 = apellido1;
-        Apellido2 = apellido2;
-        Email = email;
-        Password = password;
-        CategoriaProfesionalId = categoriaProfesionalId;
-    }
-
-    public void Dispose()
-    {
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
-    }
-
-    // Protected implementation of Dispose pattern.
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposed)
-            return;
-
-        if (disposing)
-        {
-            // Free any other managed objects here.
-            //Liberar recursos no manejados como ficheros, conexiones a bd, etc.
-        }
-
-        disposed = true;
-    }
+    
 }
