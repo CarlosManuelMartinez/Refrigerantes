@@ -13,8 +13,9 @@ namespace Refrigerantes.ModelDTO
     {
         public int TipoEquipoId_DTO { get; set; }
         
-        public string TipoEquipo1_DTO { get; set; } 
-        
+        public string TipoEquipo1_DTO { get; set; }
+        public  List<Equipo> Equipos_DTO { get; set; } = new List<Equipo>();
+
 
         public TipoEquipoDTO() { }
 
@@ -22,6 +23,7 @@ namespace Refrigerantes.ModelDTO
         { 
             TipoEquipoId_DTO = tipoEquipoId_DTO;
             TipoEquipo1_DTO = tipoEquipo1_DTO;
+            Equipos_DTO = equipos_DTO;
         }
 
         public override string ToString()
