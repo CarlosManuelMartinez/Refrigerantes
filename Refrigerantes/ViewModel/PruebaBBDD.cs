@@ -137,7 +137,7 @@ namespace Refrigerantes.ViewModel
             dtable.Columns.Add("OperarioId", typeof(int));
             dtable.Columns.Add("DNI", typeof(string));
             dtable.Columns.Add("Nombre", typeof(string));
-            dtable.Columns.Add("Mierda 1", typeof(string));
+            dtable.Columns.Add("Apellido 1", typeof(string));
             dtable.Columns.Add("Apellido 2", typeof(string));
             dtable.Columns.Add("Email", typeof(string));
             dtable.Columns.Add("Password", typeof(string));
