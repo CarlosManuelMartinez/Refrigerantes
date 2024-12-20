@@ -7,17 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBox Text="{Binding Nombre}">
+        <TextBox Text="PRUEBA BBDD">
 
         </TextBox>
 
-        <DataGrid x:Name="DataGridProductos"
-                  ItemsSource="{Binding TablaOperarios}"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True">
-        </DataGrid>
-
         <DataGrid ItemsSource="{Binding TablaOperarios}"
+                  IsReadOnly="True"
                   CanUserDeleteRows="false"
                   CanUserAddRows="False"
                   CanUserResizeRows="False"

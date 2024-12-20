@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="BBDD\" />
     <Folder Include="View\" />
     <Folder Include="Validations\" />
     <Folder Include="Resources\" />

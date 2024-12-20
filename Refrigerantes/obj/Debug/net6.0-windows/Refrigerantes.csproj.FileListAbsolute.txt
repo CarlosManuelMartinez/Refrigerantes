@@ -3,11 +3,9 @@ C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\Refrigerantes.runtimeconfig.json
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\Refrigerantes.dll
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\Refrigerantes.pdb
-C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\MainWindow.g.cs
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\App.g.cs
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Refrigerantes_MarkupCompile.cache
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Refrigerantes_MarkupCompile.lref
-C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\MainWindow.baml
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Refrigerantes.g.resources
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Refrigerantes.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Refrigerantes.AssemblyInfoInputs.cache
@@ -68,3 +66,5 @@ C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Refrigerantes.csproj.AssemblyReference.cache
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Refrigerantes.csproj.CopyComplete
+C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\MainWindow.g.cs
+C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\MainWindow.baml
