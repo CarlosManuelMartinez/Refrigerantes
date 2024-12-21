@@ -68,3 +68,7 @@ C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Refrigerantes.csproj.CopyComplete
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\MainWindow.g.cs
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\MainWindow.baml
+C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Styles\Botones.baml
+C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Styles\Buttons.baml
+C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Styles\Colores.baml
+C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Styles\Tipografia.baml
