@@ -7,11 +7,29 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="View\Loggin.xaml.cs">
+    <Compile Update="CustomControl\customTextBox.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="CustomControl\DatosMuestra.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="CustomControl\PasswordEnlazable.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\LoginView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="CustomControl\customTextBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CustomControl\DatosMuestra.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="CustomControl\PasswordEnlazable.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -27,7 +45,7 @@
     <Page Update="Styles\Tipografia.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="View\Loggin.xaml">
+    <Page Update="View\LoginView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

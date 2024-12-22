@@ -1,0 +1,166 @@
+﻿<Window x:Class="Refrigerantes.View.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Refrigerantes.View"
+        xmlns:viewModel="clr-namespace:Refrigerantes.ViewModel"
+        xmlns:customcontrol="clr-namespace:Refrigerantes.CustomControl"
+        mc:Ignorable="d"
+        Title="LoginView" Height="600" Width="600"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent">
+
+    <!--<Window.DataContext>
+    <viewModel:LoginViewModel/>
+    </Window.DataContext>-->
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+
+    <!--<Window.Visibility>
+    <Binding Path="IsVisible"
+    Mode="TwoWay"
+    Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>-->
+
+    <!--BORDE PARA LA IMAGEN -->
+    <Border x:Name="BordeParaImagen" CornerRadius="25">
+        <!--<Border.Background>
+        --><!--<ImageBrush ImageSource="/Resources/fondoBikeStores.jpeg"
+        Stretch="Fill"/>--><!--
+        </Border.Background>-->
+        <!--BORDE LINEAL -->
+        <Border x:Name ="BordeLineal"
+                CornerRadius="25"
+                Background= "{StaticResource colorFondo}"
+                BorderBrush="{StaticResource colorBordes}"
+                BorderThickness="4"
+                Opacity="0.90">
+            <!--Grid principal -->
+            <Grid x:Name="GridGeneral">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid x:Name="BotoneraMinimizaeCerrar">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="25"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="LOGIN"
+                               Foreground="{StaticResource colorTextosBotones}"
+                               FontSize="18"
+                               FontFamily="Century Gothic"
+                               Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Margin="25,0,0,0"/>
+                    <Button x:Name="Minimizar"
+                            Background="{StaticResource colorTextosBotones}"
+                            BorderThickness="0"
+                            Content="-"
+                            Foreground="#987070"
+                            FontSize="18"
+                            FontFamily="Century Gothic"
+                            Cursor="Hand"
+                            Grid.Column="1"
+                            Click="btnMinimize_Click"/>
+                    <Button x:Name="CerrarVentana"
+                            Background="{StaticResource colorTextosBotones}"
+                            BorderThickness="0"
+                            Content="X"
+                            Foreground="{StaticResource colorFondo}"
+                            FontSize="18"
+                            FontFamily="Century Gothic"
+                            Cursor="Hand"
+                            Grid.Column="2"
+                            Click="btnCerrar_Click"/>
+                </Grid>
+
+                <StackPanel Width="250"
+                            Grid.Row="2"
+                            Orientation="Vertical"
+                            Margin="0,35,0,0">
+                    <TextBlock Text="BIKES STORES"
+                               Foreground="#F1E5D1"
+                               FontSize="18"
+                               FontFamily="Century Gothic"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Margin="0,10"/>
+                    <Image Source="/Resources/logo.png"
+                           Width="98" Height="97"/>
+                    <TextBlock Text="USER"
+                               Foreground="#F1E5D1"
+                               FontSize="18"
+                               FontFamily="Century Gothic"
+                               VerticalAlignment="Center"
+                               Margin="10,10,10,0"/>
+                    <ComboBox x:Name="ComboBoxStaffs"
+                              Margin="10,0"
+                              FontSize="18"
+                              Background="Goldenrod"
+                              ItemsSource="{Binding Path=StaffList}"
+                              SelectedItem="{Binding Path=SelectedStaff}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="30"/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Image Source="{Binding ImageStaff}" Margin="0,0,5,0" HorizontalAlignment="Left" MaxHeight="25" MaxWidth="25" Grid.Column="0"/>
+                                        <TextBlock Text="{Binding FirstName}"  Margin="0,0,5,0" HorizontalAlignment="Center" Grid.Column="1"/>
+                                        <TextBlock Text="{Binding LastName}"  Margin="0,0,5,0" HorizontalAlignment="Right" Grid.Column="2"/>
+                                    </Grid>
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <TextBlock Text="PASSWORD"
+                               Foreground="#F1E5D1"
+                               FontSize="18"
+                               FontFamily="Century Gothic"
+                               VerticalAlignment="Center"
+                               Margin="10,20,10,0"/>
+
+                    <!--custom control para el password-->
+                    <!--<customcontrol:PasswordEnlazable Password ="{Binding Password, Mode = TwoWay,
+                    UpdateSourceTrigger = PropertyChanged}"/>-->
+
+                    <!--Text ERRORES -->
+                    <TextBlock x:Name="tbError"
+                               Text="{Binding ErrorMessage,Mode = TwoWay,
+                               UpdateSourceTrigger = PropertyChanged}"
+                               Foreground="White"
+                               FontSize="18"
+                               FontFamily="Century Gothic"
+                               VerticalAlignment="Center"
+                               Margin="10,20,10,0"/>
+                    <Button x:Name="btnLogin"
+                            Height="30"
+                            Command="{Binding LoginCommand}"
+                            Margin="10,50"
+                            Background="#F1E5D1"
+                            BorderThickness="1"
+                            Content="LOGIN"
+                            Foreground="#987070"
+                            FontSize="18"
+                            FontFamily="Century Gothic"
+                            Cursor="Hand"
+                            />
+
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Border>
+</Window>

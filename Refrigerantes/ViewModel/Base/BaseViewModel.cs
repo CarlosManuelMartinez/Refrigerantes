@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarlosManuelMartinezPomaresBikeStores_WPF.ViewModel.Base
+namespace Refrigerantes.ViewModel.Base
 {
     public abstract class BaseViewModel : INotifyPropertyChanged
     {

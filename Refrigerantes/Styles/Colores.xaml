@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Brush x:Key="colorTextosBotones">#F1E5D1</Brush>
-    <Brush x:Key="colorFondo1">#DBB5B5</Brush>
-    <Brush x:Key="colorBordes">#C39898</Brush>
-    <Brush x:Key="colorFondo">#987070</Brush>
+    <Brush x:Key="colorFondo1">#76d7c4</Brush>
+    <Brush x:Key="colorBordes">#45b39d</Brush>
+    <Brush x:Key="colorFondo">#566573</Brush>
 </ResourceDictionary>

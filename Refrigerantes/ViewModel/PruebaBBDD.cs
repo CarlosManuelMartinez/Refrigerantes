@@ -1,4 +1,4 @@
-﻿using CarlosManuelMartinezPomaresBikeStores_WPF.ViewModel.Base;
+﻿using Refrigerantes.ViewModel.Base;
 using Refrigerantes.ModelDTO;
 using Refrigerantes.Services;
 using System;

@@ -3,31 +3,9 @@
 -- DAM Semipresencial Proyecto final
 -- BBDD REFRIGERANTES
 
-USE master;
+CREATE DATABASE Refrigerantes;
 GO
 
-IF EXISTS(SELECT * FROM sys.databases WHERE name = 'Refrigerantes')
-BEGIN
-    DROP DATABASE Refrigerantes;
-END
-GO
-
-CREATE DATABASE Refrigerantes ON
-(NAME = Refrigerantes_dat,
-    FILENAME = 'C:\Users\carlo\RefrigerantesDB\refrigerantes.mdf',
-    SIZE = 10,
-    MAXSIZE = 50,
-    FILEGROWTH = 5)
-LOG ON
-(NAME = Refrigerantes_log,
-    FILENAME = 'C:\Users\carlo\RefrigerantesDB\refrigerantes_log.ldf',
-    SIZE = 5 MB,
-    MAXSIZE = 25 MB,
-    FILEGROWTH = 5 MB);
-GO
-
-USE Refrigerantes;
-GO
 ----------------------------------------------CREACION DE LAS TABLAS------------------------------------------
 
 -- TABLA REFRIGERANTES

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace CarlosManuelMartinezPomaresBikeStores_WPF.ViewModel.Base
+namespace Refrigerantes.ViewModel.Base
 {
         public class RelayCommand<T> : ICommand
         {

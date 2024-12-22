@@ -10,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Refrigerantes.View
+namespace Refrigerantes.CustomControl
 {
-/// <summary>
-    /// Lógica de interacción para Loggin.xaml
-/// </summary>
-public partial class Loggin : Window
-{
-public Loggin()
-{
-InitializeComponent();
-}
-
-
-}
+    /// <summary>
+    /// Lógica de interacción para DatosMuestra.xaml
+    /// </summary>
+    public partial class DatosMuestra : UserControl
+    {
+        public DatosMuestra()
+        {
+            InitializeComponent();
+        }
+    }
 }

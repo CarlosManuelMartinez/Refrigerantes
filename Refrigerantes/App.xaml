@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:Refrigerantes"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source=" /Styles/Tipografia.xaml"/>
+                <ResourceDictionary Source=" /Styles/Colores.xaml"/>
+                <ResourceDictionary Source=" /Styles/Botones.xaml"/>
+                <ResourceDictionary Source=" /Styles/Buttons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
