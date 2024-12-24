@@ -40,9 +40,9 @@ namespace Refrigerantes.View
         private void btnCerrar_Click(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Desea salir de la aplicación?",
-                    "Bikes Store",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Question) == MessageBoxResult.Yes)
+            "Bikes Store",
+            MessageBoxButton.YesNo,
+            MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 Application.Current.Shutdown();
             }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Refrigerantes.View;
+using Refrigerantes.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +15,20 @@ namespace Refrigerantes
     /// </summary>
     public partial class App : Application
     {
+        protected void ApplicationStart(object sender, StartupEventArgs e)
+        {
+            var loginView = new LoginView();
+            loginView.Show();
+            //loginView.IsVisibleChanged += (s, ev) =>
+            //{
+            //    if (loginView.IsVisible == false && loginView.IsLoaded)
+            //    {
+            //        var pruebaBBDD = new PruebaBBDD();
+            //        pruebaBBDD.Show();
+            //        loginView.Close();
+            //    }
+
+            //};
+        }
     }
 }

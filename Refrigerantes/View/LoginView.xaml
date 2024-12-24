@@ -12,19 +12,19 @@
         AllowsTransparency="True"
         Background="Transparent">
 
-    <!--<Window.DataContext>
-    <viewModel:LoginViewModel/>
-    </Window.DataContext>-->
+    <Window.DataContext>
+        <viewModel:LoginViewModel/>
+    </Window.DataContext>
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
     </Window.Resources>
 
-    <!--<Window.Visibility>
-    <Binding Path="IsVisible"
-    Mode="TwoWay"
-    Converter="{StaticResource BooleanToVisibility}"/>
-    </Window.Visibility>-->
+    <Window.Visibility>
+        <Binding Path="Visible"
+                 Mode="TwoWay"
+                 Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
 
     <!--BORDE PARA LA IMAGEN -->
     <Border x:Name="BordeParaImagen" CornerRadius="25">
@@ -85,7 +85,7 @@
                             Grid.Row="2"
                             Orientation="Vertical"
                             Margin="0,35,0,0">
-                    <TextBlock Text="BIKES STORES"
+                    <TextBlock Text="GESTOR DE REFRIGERANTES"
                                Foreground="#F1E5D1"
                                FontSize="18"
                                FontFamily="Century Gothic"
@@ -104,8 +104,8 @@
                               Margin="10,0"
                               FontSize="18"
                               Background="Goldenrod"
-                              ItemsSource="{Binding Path=StaffList}"
-                              SelectedItem="{Binding Path=SelectedStaff}">
+                              ItemsSource="{Binding Path=OperariosObservable}"
+                              SelectedItem="{}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -116,9 +116,8 @@
                                             <ColumnDefinition/>
                                         </Grid.ColumnDefinitions>
 
-                                        <Image Source="{Binding ImageStaff}" Margin="0,0,5,0" HorizontalAlignment="Left" MaxHeight="25" MaxWidth="25" Grid.Column="0"/>
-                                        <TextBlock Text="{Binding FirstName}"  Margin="0,0,5,0" HorizontalAlignment="Center" Grid.Column="1"/>
-                                        <TextBlock Text="{Binding LastName}"  Margin="0,0,5,0" HorizontalAlignment="Right" Grid.Column="2"/>
+                                        <TextBlock Text="{Binding Nombre_DTO}"  Margin="0,0,5,0" HorizontalAlignment="Center" Grid.Column="1"/>
+                                        <TextBlock Text="{Binding Apellido1_DTO}"  Margin="0,0,5,0" HorizontalAlignment="Right" Grid.Column="2"/>
                                     </Grid>
                                 </StackPanel>
 
@@ -134,8 +133,8 @@
                                Margin="10,20,10,0"/>
 
                     <!--custom control para el password-->
-                    <!--<customcontrol:PasswordEnlazable Password ="{Binding Password, Mode = TwoWay,
-                    UpdateSourceTrigger = PropertyChanged}"/>-->
+                    <customcontrol:PasswordEnlazable Password ="{Binding Password, Mode = TwoWay,
+                                                     UpdateSourceTrigger = PropertyChanged}"/>
 
                     <!--Text ERRORES -->
                     <TextBlock x:Name="tbError"

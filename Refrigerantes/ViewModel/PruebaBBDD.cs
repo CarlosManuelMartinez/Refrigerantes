@@ -46,9 +46,6 @@ namespace Refrigerantes.ViewModel
             get { return operarios; }
             set { operarios = value; OnPropertyChanged(nameof(Operarios)); }
         }
-
-        
-
         public PruebaBBDD()
         {
             CargarOperarios();
@@ -57,7 +54,6 @@ namespace Refrigerantes.ViewModel
            PerformCargarOperarios();
 
         }
-
         public int OperarioId
         {
             get { return operarioId; }
@@ -68,13 +64,11 @@ namespace Refrigerantes.ViewModel
             get { return dni; }
             set { dni = value; OnPropertyChanged("Dni"); }
         }
-
         public string Nombre
         {
             get { return nombre; }
             set { nombre = value; OnPropertyChanged("Nombre"); }
         }
-
         public string Apellido1
         {
             get { return apellido1; }
@@ -134,25 +128,26 @@ namespace Refrigerantes.ViewModel
 
             DataTable dtable = new DataTable();
 
-            dtable.Columns.Add("OperarioId", typeof(int));
-            dtable.Columns.Add("DNI", typeof(string));
+            //dtable.Columns.Add("OperarioId", typeof(int));
+            //dtable.Columns.Add("DNI", typeof(string));
             dtable.Columns.Add("Nombre", typeof(string));
             dtable.Columns.Add("Apellido 1", typeof(string));
-            dtable.Columns.Add("Apellido 2", typeof(string));
+            //dtable.Columns.Add("Apellido 2", typeof(string));
             dtable.Columns.Add("Email", typeof(string));
-            dtable.Columns.Add("Password", typeof(string));
-            dtable.Columns.Add("Categoria", typeof(int));
+            //dtable.Columns.Add("Password", typeof(string));
+            //dtable.Columns.Add("Categoria", typeof(int));
 
             foreach (OperarioDTO operario in Operarios)
             {
-                dtable.Rows.Add(operario.OperarioId_DTO,
-                    operario.Dni_DTO,
+                dtable.Rows.Add(
+                    //operario.OperarioId_DTO,
+                    // operario.Dni_DTO,
                     operario.Nombre_DTO,
                     operario.Apellido1_DTO,
-                    operario.Apellido2_DTO,
-                    operario.Email_DTO,
-                    operario.Password_DTO,
-                    operario.CategoriaProfesionalId_DTO);
+                    //operario.Apellido2_DTO,
+                    operario.Email_DTO);
+                    //operario.Password_DTO,
+                    //operario.CategoriaProfesionalId_DTO);
             }
             TablaOperarios = dtable;
         }

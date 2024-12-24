@@ -39,6 +39,8 @@ namespace Refrigerantes.Services
             }
         }
 
+       
+
         public OperarioDTO OperarioPorId(int id)
         {
             using (var context = new RefrigerantesContext())
