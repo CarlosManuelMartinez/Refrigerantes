@@ -139,7 +139,7 @@
 
                     <!--Text ERRORES -->
                     <TextBlock x:Name="tbError"
-                               Text="{Binding ErrorMessage,Mode = TwoWay,
+                               Text="{Binding MensajeError,Mode = TwoWay,
                                UpdateSourceTrigger = PropertyChanged}"
                                Foreground="White"
                                FontSize="18"
