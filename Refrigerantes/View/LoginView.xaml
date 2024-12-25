@@ -9,6 +9,7 @@
         mc:Ignorable="d"
         Title="LoginView" Height="600" Width="600"
         WindowStyle="None"
+        WindowStartupLocation = "CenterScreen"
         AllowsTransparency="True"
         Background="Transparent">
 
@@ -105,7 +106,7 @@
                               FontSize="18"
                               Background="Goldenrod"
                               ItemsSource="{Binding Path=OperariosObservable}"
-                              SelectedItem="{}">
+                              SelectedItem="{Binding Path=Operario}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">

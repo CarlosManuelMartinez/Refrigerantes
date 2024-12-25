@@ -24,7 +24,7 @@ namespace Refrigerantes.ViewModel
         private bool visible = true;
         public int intentosLogin = 0;
 
-        private OperarioDTO Operario
+        public OperarioDTO Operario
         {
             get { return operario; }
             set { operario = value; }
@@ -55,7 +55,7 @@ namespace Refrigerantes.ViewModel
         }
 
         public ICommand LoginCommand { get; }
-        public ICommand MostrarPasswordCommand { get; }
+       // public ICommand MostrarPasswordCommand { get; }
 
         public LoginViewModel()
         {
@@ -82,16 +82,18 @@ namespace Refrigerantes.ViewModel
                 valid = true;
             }
             return valid;
+
         }
 
         private void ExecuteLoginCommand(object obj)
         {
             MensajeError = string.Empty;
+            Debug.WriteLine("EEEEEEExecute");
             OperarioDTO? operarioSeleccionado = BuscarOperarioPorMail(Operario.Email_DTO);
 
             MensajeError = "Email de " + operarioSeleccionado.Nombre_DTO + operarioSeleccionado.Email_DTO;
 
-            if (intentosLogin < 2)
+            if (intentosLogin < 10)
             {
                 if (operarioSeleccionado != null && operarioSeleccionado.Password_DTO.ToLower().Equals(BitConverter.ToString(Password).Replace("-", "").ToLower()))
                 {
