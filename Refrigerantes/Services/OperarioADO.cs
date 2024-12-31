@@ -39,8 +39,6 @@ namespace Refrigerantes.Services
             }
         }
 
-       
-
         public OperarioDTO OperarioPorId(int id)
         {
             using (var context = new RefrigerantesContext())
@@ -57,7 +55,6 @@ namespace Refrigerantes.Services
                     Password_DTO = operario.Password,
                     CategoriaProfesionalId_DTO = operario.CategoriaProfesionalId
                 };
-
             }
         }
 

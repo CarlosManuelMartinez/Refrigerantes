@@ -6,13 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 
-namespace CarlosManuelMartinezPomaresBikeStores_WPF.Validations
+namespace Refrigerantes.Validations
 {
     public class NombreValidation : ValidationRule
     {
         public int Min { get; set; }
         public int Max { get; set; }
-
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
             try
@@ -32,7 +31,5 @@ namespace CarlosManuelMartinezPomaresBikeStores_WPF.Validations
             }
             return new ValidationResult(true, null);
         }
-
-
     }
 }

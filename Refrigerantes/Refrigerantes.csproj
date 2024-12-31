@@ -8,6 +8,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\fondoBikeStores.jpeg" />
+    <None Remove="Resources\gas-cylinder.png" />
+    <None Remove="Resources\gas-icon2.png" />
+    <None Remove="Resources\icon_casa.png" />
+    <None Remove="Resources\icon_estadísticas.png" />
+    <None Remove="Resources\icon_informes.png" />
+    <None Remove="Resources\icon_operario.png" />
+    <None Remove="Resources\icon_order.png" />
+    <None Remove="Resources\icon_producto.png" />
+    <None Remove="Resources\icon_staff.png" />
+    <None Remove="Resources\Logo.png" />
+    <None Remove="Resources\logoRefrigerantes.png" />
+    <None Remove="Resources\logoRefrigerantes2.png" />
+    <None Remove="Resources\logorefrigerantes3.png" />
+    <None Remove="Resources\molecule-co2.png" />
+    <None Remove="Resources\user.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />
     <PackageReference Include="LiveCharts.NetCore" Version="0.9.8" />
     <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.8" />
@@ -20,7 +39,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Validations\" />
+    <Resource Include="Resources\fondoBikeStores.jpeg" />
+    <Resource Include="Resources\gas-cylinder.png" />
+    <Resource Include="Resources\gas-icon2.png" />
+    <Resource Include="Resources\icon_casa.png" />
+    <Resource Include="Resources\icon_estadísticas.png" />
+    <Resource Include="Resources\icon_informes.png" />
+    <Resource Include="Resources\icon_operario.png" />
+    <Resource Include="Resources\icon_order.png" />
+    <Resource Include="Resources\icon_producto.png" />
+    <Resource Include="Resources\icon_staff.png" />
+    <Resource Include="Resources\Logo.png" />
+    <Resource Include="Resources\logoRefrigerantes.png" />
+    <Resource Include="Resources\logoRefrigerantes2.png" />
+    <Resource Include="Resources\logorefrigerantes3.png" />
+    <Resource Include="Resources\molecule-co2.png" />
+    <Resource Include="Resources\user.png" />
   </ItemGroup>
 
 </Project>

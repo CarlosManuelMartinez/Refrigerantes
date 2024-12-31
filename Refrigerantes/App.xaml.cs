@@ -19,16 +19,16 @@ namespace Refrigerantes
         {
             var loginView = new LoginView();
             loginView.Show();
-            //loginView.IsVisibleChanged += (s, ev) =>
-            //{
-            //    if (loginView.IsVisible == false && loginView.IsLoaded)
-            //    {
-            //        var pruebaBBDD = new PruebaBBDD();
-            //        pruebaBBDD.Show();
-            //        loginView.Close();
-            //    }
+            loginView.IsVisibleChanged += (s, ev) =>
+            {
+                if (loginView.IsVisible == false && loginView.IsLoaded)
+                {
+                    var ventanaPrincipal = new VentanaPrincipalView();
+                    ventanaPrincipal.Show();
+                    loginView.Close();
+                }
 
-            //};
+            };
         }
     }
 }

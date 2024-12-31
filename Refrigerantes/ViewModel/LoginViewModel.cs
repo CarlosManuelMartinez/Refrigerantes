@@ -55,7 +55,6 @@ namespace Refrigerantes.ViewModel
         }
 
         public ICommand LoginCommand { get; }
-       // public ICommand MostrarPasswordCommand { get; }
 
         public LoginViewModel()
         {
@@ -73,7 +72,6 @@ namespace Refrigerantes.ViewModel
             bool valid;
 
             if (Operario == null || Password == null || Password.Length < 3)
-            
             {
                 valid = false;
             }
@@ -88,7 +86,6 @@ namespace Refrigerantes.ViewModel
         private void ExecuteLoginCommand(object obj)
         {
             MensajeError = string.Empty;
-            Debug.WriteLine("EEEEEEExecute");
             OperarioDTO? operarioSeleccionado = BuscarOperarioPorMail(Operario.Email_DTO);
 
             MensajeError = "Email de " + operarioSeleccionado.Nombre_DTO + operarioSeleccionado.Email_DTO;

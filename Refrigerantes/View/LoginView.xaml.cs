@@ -52,8 +52,5 @@ namespace Refrigerantes.View
         {
 
         }
-
-
-
     }
 }
