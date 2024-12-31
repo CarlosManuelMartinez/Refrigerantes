@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Refrigerantes.Model;
 using Refrigerantes.Services.Interfaces;
 
@@ -17,7 +18,7 @@ namespace Refrigerantes.Services
             disposed = false;
         }
 
-        public List<OperarioDTO> ListarOperarios()
+        public List<OperarioDTO> ListarOperariosADO()
         {
             using (var context = new RefrigerantesContext())
             {
@@ -39,7 +40,7 @@ namespace Refrigerantes.Services
             }
         }
 
-        public OperarioDTO OperarioPorId(int id)
+        public OperarioDTO OperarioPorIdADO(int id)
         {
             using (var context = new RefrigerantesContext())
             {
@@ -58,7 +59,7 @@ namespace Refrigerantes.Services
             }
         }
 
-        public OperarioDTO OperarioPorEmail(string email)
+        public OperarioDTO OperarioPorEmailADO(string email)
         {
             using (var context = new RefrigerantesContext())
             {
@@ -75,6 +76,35 @@ namespace Refrigerantes.Services
                     CategoriaProfesionalId_DTO = operario.CategoriaProfesionalId
                 };
 
+            }
+        }
+
+        public void InsertarOperarioADO(OperarioDTO operarioDTO)
+        {
+            using (var context = new RefrigerantesContext())
+            {
+                context.Entry(operarioDTO).State = EntityState.Added;
+                context.SaveChanges();
+            }
+        }
+
+        public void ActualizarOperarioADO(OperarioDTO operarioDTO)
+        {
+            using (var context =  new RefrigerantesContext())
+            {
+                context.Entry(operarioDTO).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+
+        }
+
+        public void BorrarOperarioADO(int id)
+        {
+            
+            using (var context = new RefrigerantesContext())
+            {
+                var operarioABorrar = context.Operarios.FirstOrDefault(x => x.OperarioId == id);
+                context.Operarios.Remove(operarioABorrar);
             }
         }
 

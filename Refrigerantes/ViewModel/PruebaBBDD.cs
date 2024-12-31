@@ -101,7 +101,7 @@ namespace Refrigerantes.ViewModel
         {
             using (OperarioADO operario_ADO = new())
             {
-                var operariosList = operario_ADO.ListarOperarios();
+                var operariosList = operario_ADO.ListarOperariosADO();
                 if(operariosList != null)
                 {
                      Nombre = operariosList[1].Nombre_DTO;
@@ -118,7 +118,7 @@ namespace Refrigerantes.ViewModel
         {
             using (OperarioADO operario_ADO = new())
             {
-                var operariosList = operario_ADO.ListarOperarios();
+                var operariosList = operario_ADO.ListarOperariosADO();
                 Operarios = new ObservableCollection<OperarioDTO>(operariosList);
             }
         }

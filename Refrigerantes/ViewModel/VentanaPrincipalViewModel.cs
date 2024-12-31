@@ -102,7 +102,7 @@ namespace Refrigerantes.ViewModel
                 {
                     int id = Convert.ToInt32(Thread.CurrentPrincipal.Identity.Name);
 
-                    _operario = operarioADO.OperarioPorId(id);
+                    _operario = operarioADO.OperarioPorIdADO(id);
 
                     if (_operario == null)
                     {

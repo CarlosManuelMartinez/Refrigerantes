@@ -62,7 +62,7 @@ namespace Refrigerantes.ViewModel
 
             using (OperarioADO operarioADO = new OperarioADO())
             {
-                OperariosObservable = new ObservableCollection<OperarioDTO>(operarioADO.ListarOperarios());
+                OperariosObservable = new ObservableCollection<OperarioDTO>(operarioADO.ListarOperariosADO());
             }
         }
 
@@ -113,7 +113,7 @@ namespace Refrigerantes.ViewModel
         {
             using (var operarioADO = new OperarioADO())
             {
-                return operarioADO.OperarioPorEmail(email);
+                return operarioADO.OperarioPorEmailADO(email);
             }
         }
     }

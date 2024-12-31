@@ -11,10 +11,15 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent">
+
     <Window.DataContext>
         <viewModel:VentanaPrincipalViewModel/>
     </Window.DataContext>
+
     <Window.Resources>
+        <DataTemplate DataType="{x:Type viewModel:OperariosViewModel}">
+            <local:OperariosView/>
+        </DataTemplate>
     </Window.Resources>
 
     <!--BORDE PARA LA IMAGEN -->

@@ -9,8 +9,8 @@ namespace Refrigerantes.Services.Interfaces
 {
     public interface IOperarioADO
     {
-        List<OperarioDTO> ListarOperarios();
-        OperarioDTO OperarioPorId(int id);
-        OperarioDTO OperarioPorEmail(string email);
+        List<OperarioDTO> ListarOperariosADO();
+        OperarioDTO OperarioPorIdADO(int id);
+        OperarioDTO OperarioPorEmailADO(string email);
     }
 }

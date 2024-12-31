@@ -70,7 +70,7 @@ INSERT INTO Operario (dni, nombre, apellido1, apellido2, email, password, catego
     '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 3),
     ('90123456H', 'Julian', 'Lopez', 'Navarro', 'julian.lopez@refrigerante.com',
     '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 4),
-    ('52764295H', 'Elver', 'Galarga', 'Astur', 'elver.galarga@refrigerante.com',
+    ('52764295H', 'Federico', 'Ramos', 'Astur', 'elver.galarga@refrigerante.com',
     '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 5),
     ('01234567J', 'Sandra', 'Ortega', 'Marin', 'sandra.ortega@refrigerante.com',
     '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4', 1);
