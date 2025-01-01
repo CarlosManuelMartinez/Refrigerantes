@@ -21,6 +21,9 @@
         <DataTemplate DataType="{x:Type viewModel:OperariosViewModel}">
             <local:OperariosView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:RefrigerantesViewModel}">
+            <local:RefrigerantesView/>
+        </DataTemplate>
     </Window.Resources>
 
     <!--BORDE PARA LA IMAGEN -->
@@ -102,14 +105,14 @@
                         </StackPanel>
                     </Button>
 
-                    <!--BOTON GASES-->
+                    <!--BOTON REFRIGERANTES-->
                     <Button Style="{StaticResource botonesMenu}"
                             Tag="{StaticResource colorBordes}"
-                            Command ="{Binding MostrarPedidoViewCommand}">
+                            Command ="{Binding MostrarRefrigerantesViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Resources/molecule-co2.png" Style="{StaticResource menuBotonIcono}"/>
-                            <TextBlock Text="GASES" Style="{StaticResource menuBotonTexto}"/>
+                            <TextBlock Text="REFRIGERANTES" Style="{StaticResource menuBotonTexto}"/>
                         </StackPanel>
                     </Button>
 

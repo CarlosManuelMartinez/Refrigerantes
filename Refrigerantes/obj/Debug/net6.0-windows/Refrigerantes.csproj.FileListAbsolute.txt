@@ -62,6 +62,7 @@ C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\MainWindow.g.cs
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\LoginView.g.cs
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\OperariosView.g.cs
+C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\RefrigerantesView.g.cs
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\VentanaPrincipalView.g.cs
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\App.g.cs
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
@@ -74,6 +75,7 @@ C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\MainWindow.baml
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\LoginView.baml
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\OperariosView.baml
+C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\RefrigerantesView.baml
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\VentanaPrincipalView.baml
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Refrigerantes.g.resources
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Refrigerantes.GeneratedMSBuildEditorConfig.editorconfig

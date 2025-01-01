@@ -110,6 +110,7 @@ namespace Refrigerantes.ViewModel
 
         public OperariosViewModel()
         {
+            Password = PASSWORD_POR_DEFECTO;
             GuardarCommand = new RelayCommand(PerformInsertarOperario, CanExecuteInsertarOperario);
             BorrarCommand = new RelayCommand(PerformBorrarOperario);
             ModificarCommand = new RelayCommand(PerformModificarOperario);
@@ -208,11 +209,17 @@ namespace Refrigerantes.ViewModel
                 palabraClave = value; OnPropertyChanged("PalabraClave");
             }
         }
-
+        
         private bool CanExecuteInsertarOperario(object? parameter)
         {
             Debug.WriteLine("CanExecuteSaveOperarios");
-            return !string.IsNullOrEmpty(Nombre);
+            return (!string.IsNullOrEmpty(Nombre)
+                && !string.IsNullOrEmpty(Dni)
+                && !string.IsNullOrEmpty(Apellido1)
+                && !string.IsNullOrEmpty(Apellido2)
+                && !string.IsNullOrEmpty(Email)
+                && !string.IsNullOrEmpty(Password)
+                );
         }
         private void PerformFilterOperarios(object? parameter)
         {
@@ -231,22 +238,17 @@ namespace Refrigerantes.ViewModel
 
 
                 Debug.WriteLine("PerformSelectedItemChangedCommand:" + "Selected:" + FilaSeleccionada["Nombre"].ToString());
+
                 OperarioId = (int)FilaSeleccionada["OperarioId"];
                 Dni = FilaSeleccionada["Dni"].ToString();
                 Nombre = FilaSeleccionada["Nombre"].ToString();
                 Apellido1 = FilaSeleccionada["Apellido1"].ToString();
                 Apellido2 = FilaSeleccionada["Apellido2"].ToString();
                 Email = FilaSeleccionada["Email"].ToString();
-                //Email = "Hola";
                 Password = PASSWORD_POR_DEFECTO;
                 CategoriaSeleccionada = Categorias.FirstOrDefault(x => x.CategoriaProfesionalId == (int)FilaSeleccionada["CategoriaId"]);
 
             }
-        }
-
-        private void PerformFilterProducts(object? parameter)
-        {
-            TablaOperarios.DefaultView.RowFilter = String.Format("Name like '%{0}%' ", Busqueda);
         }
 
         private void PerformLimpiarOperario(object? parameter = null)
@@ -388,7 +390,6 @@ namespace Refrigerantes.ViewModel
                 operarioADO.ActualizarOperarioADO(operario);
             }
         }
-
 
     }
 }

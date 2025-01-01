@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Refrigerantes.Model;
 using Refrigerantes.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Refrigerantes.Services
 {
@@ -51,6 +52,35 @@ namespace Refrigerantes.Services
                     Grupo_DTO = refrigerante.Grupo,
                 };
 
+            }
+        }
+
+        public void InsertarRefrigeranteADO(RefrigeranteDTO refrigerante)
+        {
+            using (var context = new RefrigerantesContext())
+            {
+                context.Refrigerantes.Entry(refrigerante.ToModel()).State = EntityState.Added;
+                context.SaveChanges();
+            }
+        }
+
+        public void ActualizarRefrigeranteADO(RefrigeranteDTO refrigerante)
+        {
+            using (var context = new RefrigerantesContext())
+            {
+                context.Refrigerantes.Entry(refrigerante.ToModel()).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+
+        public void BorrarRefrigeranteADO(int id)
+        {
+
+            using (var context = new RefrigerantesContext())
+            {
+                var refrigeranteABorrar = context.Refrigerantes.FirstOrDefault(x => x.RefrigeranteId == id);
+                context.Refrigerantes.Remove(refrigeranteABorrar);
+                context.SaveChanges();
             }
         }
 

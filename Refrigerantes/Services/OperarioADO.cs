@@ -99,7 +99,6 @@ namespace Refrigerantes.Services
 
         public void BorrarOperarioADO(int id)
         {
-            
             using (var context = new RefrigerantesContext())
             {
                 var operarioABorrar = context.Operarios.FirstOrDefault(x => x.OperarioId == id);

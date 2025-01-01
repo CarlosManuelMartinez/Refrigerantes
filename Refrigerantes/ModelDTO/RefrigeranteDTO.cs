@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Refrigerantes.Services;
 
 namespace Refrigerantes.ModelDTO
 {
@@ -26,10 +27,31 @@ namespace Refrigerantes.ModelDTO
         public RefrigeranteDTO(int refrigeranteId, string nombre, decimal co2eq, string clase, string grupo)
         {
             RefrigeranteId_DTO = refrigeranteId;
-            Nombre_DTO = nombre;
+            Nombre_DTO = nombre.ToUpper();
             Co2eq_DTO = co2eq;
             Clase_DTO = clase;
             Grupo_DTO = grupo;
+        }
+
+        public RefrigeranteDTO(string nombre, decimal co2eq, string clase, string grupo)
+            :this(0, nombre, co2eq, clase, grupo)
+        {
+
+        }
+
+        public Refrigerante ToModel()
+        {
+            Refrigerante result = new Refrigerante
+            {
+                RefrigeranteId = this.RefrigeranteId_DTO,
+                Nombre = this.Nombre_DTO,
+                Co2eq = this.Co2eq_DTO,
+                Clase = this.Clase_DTO,
+                Grupo = this.Grupo_DTO,
+
+            };
+
+            return result;
         }
 
     }

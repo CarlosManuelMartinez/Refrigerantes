@@ -44,7 +44,7 @@ namespace Refrigerantes.ViewModel
         public ICommand MostrarHomeViewCommand { get; }
         public ICommand MostrarOperacionesViewCommand { get; }
         public ICommand MostrarOperariosViewCommand { get; }
-        public ICommand MostrarGasesViewCommand { get; }
+        public ICommand MostrarRefrigerantesViewCommand { get; }
         public ICommand MostrarInstalacionesViewCommand { get; }
 
         public VentanaPrincipalViewModel()
@@ -52,7 +52,7 @@ namespace Refrigerantes.ViewModel
             MostrarHomeViewCommand = new RelayCommand(ExecuteMostrarHomeViewCommand);
             MostrarOperacionesViewCommand = new RelayCommand(ExecuteMostrarOperacionesViewCommand);
             MostrarOperariosViewCommand = new RelayCommand(ExecuteMostrarOperariosViewCommand);
-            MostrarGasesViewCommand = new RelayCommand(ExecuteMostrarInstalacionesViewCommand);
+            MostrarRefrigerantesViewCommand = new RelayCommand(ExecuteMostrarInstalacionesViewCommand);
             MostrarInstalacionesViewCommand = new RelayCommand(ExecuteMostrarInstalacionesViewCommand);
 
             ExecuteMostrarHomeViewCommand(null);
@@ -84,8 +84,8 @@ namespace Refrigerantes.ViewModel
         }
         public void ExecuteMostrarInstalacionesViewCommand(object obj)
         {
-            InstalacionesViewModel instalacionesViewModel = new();
-            CurrentChildView = instalacionesViewModel;
+            RefrigerantesViewModel refrigerantesViewModel = new();
+            CurrentChildView = refrigerantesViewModel;
         }
 
         private void CargarOperario()
