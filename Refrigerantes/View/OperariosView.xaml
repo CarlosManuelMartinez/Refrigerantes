@@ -83,7 +83,7 @@
                 </interactiv:Interaction.Triggers>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Número" Binding="{Binding Path=OperarioId}" Width="200"  IsReadOnly="True" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path=OperarioId}" Width="200"  IsReadOnly="True" Visibility="Hidden"/>
                     <DataGridTextColumn Header="Nombre" Binding="{Binding Path=Nombre}" Width="200" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Primer Apellido" Binding="{Binding Path=Apellido1}" Width="200" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Segundo Apellido" Binding="{Binding Path=Apellido2}"  Width="200" IsReadOnly="True"/>
@@ -91,7 +91,7 @@
                     <DataGridTextColumn Header="Password" Binding="{Binding Path=Password}"  Width="200" IsReadOnly="True" Visibility="Hidden"/>
                     <DataGridTextColumn Header="Dni" Binding="{Binding Path=Dni}" Width="200" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Puesto" Binding="{Binding Path=CategoriaProfesional}"  Width="auto" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="CategoriaId" Binding="{Binding Path=CategoriaId}" Width="auto" IsReadOnly="True" Visibility="Hidden" />
+                    <DataGridTextColumn Header="CategoriaId" Binding="{Binding Path=CategoriaId}" Width="auto" IsReadOnly="True"  />
 
 
                     <!--BOTON MODIFICAR-->
@@ -152,8 +152,15 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <!--DNI-->
-                <Label Content="Dni" HorizontalAlignment="Left" VerticalContentAlignment="Center" Grid.Column="1" Grid.Row="0"/>
-                <TextBox Grid.Row="0" Grid.Column="0" x:Name="tbDni" Height="27" Margin="5"  Width="300" HorizontalAlignment="Left"
+                <Label Content="Dni"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       Grid.Column="1" Grid.Row="0"/>
+                <TextBox Grid.Row="0"
+                         Grid.Column="0"
+                         x:Name="tbDni"
+                         Height="27" Margin="5"
+                         Width="300" HorizontalAlignment="Left"
                          Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}">
                     <TextBox.Text>
                         <Binding Path="Dni" UpdateSourceTrigger="PropertyChanged">
@@ -250,7 +257,7 @@
                           Height="27"
                           ItemsSource= "{Binding Path=Categorias}"
                           SelectedItem= "{Binding Path=CategoriaSeleccionada}"
-                          DisplayMemberPath="CtegoriaId" >
+                          DisplayMemberPath="CategoriaProfesional1" >
                 </ComboBox>
             </Grid>
         </GroupBox>

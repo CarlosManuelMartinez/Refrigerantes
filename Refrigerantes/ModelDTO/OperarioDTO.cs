@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Refrigerantes.Model;
+using Refrigerantes.Services;
 
 namespace Refrigerantes.ModelDTO
 {
@@ -50,6 +52,22 @@ namespace Refrigerantes.ModelDTO
             Password_DTO = password_DTO;
             CategoriaProfesionalId_DTO = categoriaProfesionalId_DTO;
 
+        }
+
+        public Operario ToModel()
+        {
+            Operario result = new Operario
+            {
+                OperarioId = this.OperarioId_DTO,
+                Dni = this.Dni_DTO,
+                Nombre = this.Nombre_DTO,
+                Apellido1 = this.Apellido1_DTO,
+                Apellido2 = this.Apellido2_DTO,
+                Email = this.Email_DTO,
+                Password = this.Password_DTO,
+                CategoriaProfesionalId = this.CategoriaProfesionalId_DTO
+            };
+            return result;
         }
     }
 }

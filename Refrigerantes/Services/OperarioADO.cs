@@ -83,7 +83,7 @@ namespace Refrigerantes.Services
         {
             using (var context = new RefrigerantesContext())
             {
-                context.Entry(operarioDTO).State = EntityState.Added;
+                context.Entry(operarioDTO.ToModel()).State = EntityState.Added;
                 context.SaveChanges();
             }
         }
@@ -92,10 +92,9 @@ namespace Refrigerantes.Services
         {
             using (var context =  new RefrigerantesContext())
             {
-                context.Entry(operarioDTO).State = EntityState.Modified;
+                context.Entry(operarioDTO.ToModel()).State = EntityState.Modified;
                 context.SaveChanges();
             }
-
         }
 
         public void BorrarOperarioADO(int id)
@@ -105,9 +104,10 @@ namespace Refrigerantes.Services
             {
                 var operarioABorrar = context.Operarios.FirstOrDefault(x => x.OperarioId == id);
                 context.Operarios.Remove(operarioABorrar);
+                context.SaveChanges();
             }
         }
-
+        
         public void Dispose()
         {
             Dispose(disposing: true);

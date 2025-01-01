@@ -18,7 +18,7 @@ namespace Refrigerantes.ViewModel
     public class OperariosViewModel : BaseViewModel
     {
         private const string PASSWORD_POR_DEFECTO = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4";
-        private string operarioId;
+        private int operarioId;
         private string dni;
         private string nombre;
         private string apellido1;
@@ -104,7 +104,7 @@ namespace Refrigerantes.ViewModel
             set
             {
                 categorias = value;
-                OnPropertyChanged(nameof(Categorias));
+                OnPropertyChanged("Categorias");
             }
         }
 
@@ -120,7 +120,7 @@ namespace Refrigerantes.ViewModel
 
         }
 
-        public string OperarioId
+        public int OperarioId
         {
             get { return operarioId; }
             set
@@ -178,7 +178,7 @@ namespace Refrigerantes.ViewModel
             get { return dni; }
             set
             {
-                dni = value; OnPropertyChanged("Password");
+                dni = value; OnPropertyChanged("Dni");
             }
         }
         public string NombreCategoria
@@ -222,14 +222,22 @@ namespace Refrigerantes.ViewModel
         private void PerformSelectedItemChangedCommand(object? parameter = null)
         {
             if (FilaSeleccionada != null)
-            {
-                Debug.WriteLine("PerformSelectedItemChangedCommand:" + "Selected:" + FilaSeleccionada["Nombre"].ToString());
 
+            {
+                foreach (DataColumn column in TablaOperarios.Columns)
+                {
+                    Debug.WriteLine($"Columna: {column.ColumnName}");
+                }
+
+
+                Debug.WriteLine("PerformSelectedItemChangedCommand:" + "Selected:" + FilaSeleccionada["Nombre"].ToString());
+                OperarioId = (int)FilaSeleccionada["OperarioId"];
                 Dni = FilaSeleccionada["Dni"].ToString();
                 Nombre = FilaSeleccionada["Nombre"].ToString();
                 Apellido1 = FilaSeleccionada["Apellido1"].ToString();
                 Apellido2 = FilaSeleccionada["Apellido2"].ToString();
                 Email = FilaSeleccionada["Email"].ToString();
+                //Email = "Hola";
                 Password = PASSWORD_POR_DEFECTO;
                 CategoriaSeleccionada = Categorias.FirstOrDefault(x => x.CategoriaProfesionalId == (int)FilaSeleccionada["CategoriaId"]);
 
@@ -243,7 +251,7 @@ namespace Refrigerantes.ViewModel
 
         private void PerformLimpiarOperario(object? parameter = null)
         {
-            OperarioId = String.Empty;
+            OperarioId = 0;
             Dni = String.Empty;
             Nombre = String.Empty;
             Apellido1 = String.Empty;
@@ -280,6 +288,7 @@ namespace Refrigerantes.ViewModel
             {
                 String s_categoriaProfesional;
                 CategoriaProfesionalDTO categoriaProfesional = Categorias.FirstOrDefault(b => b.CategoriaProfesionalId == operario.CategoriaProfesionalId_DTO);
+
                 s_categoriaProfesional = categoriaProfesional == null ? String.Empty : categoriaProfesional.CategoriaProfesional1;
 
                 dtable.Rows.Add(operario.OperarioId_DTO,
@@ -305,7 +314,7 @@ namespace Refrigerantes.ViewModel
             if (result == MessageBoxResult.Yes)
             {
 
-                OperarioDTO operario = new((int)FilaSeleccionada["ProductId"], Dni, Nombre, Apellido1, Apellido2, Email, PASSWORD_POR_DEFECTO, CategoriaSeleccionada.CategoriaProfesionalId);
+                OperarioDTO operario = new((int)FilaSeleccionada["OperarioId"], Dni, Nombre, Apellido1, Apellido2, Email, PASSWORD_POR_DEFECTO, CategoriaSeleccionada.CategoriaProfesionalId);
 
                 if (operario == null)
                 {
@@ -333,8 +342,8 @@ namespace Refrigerantes.ViewModel
             var result = MessageBox.Show("¿Desea realmente borrar este registro?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                int i_OperrioId = int.Parse(OperarioId);
-                BorrarOperario(i_OperrioId);
+                //int i_OperrioId = int.Parse(OperarioId);
+                BorrarOperario(OperarioId);
             }
         }
 

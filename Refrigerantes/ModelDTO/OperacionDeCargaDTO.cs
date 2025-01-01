@@ -45,5 +45,22 @@ namespace Refrigerantes.ModelDTO
             Operario_DTO = operario;
             Equipo_DTO = equipo;
         }
+
+        public OperacionCarga ToModel()
+        {
+            OperacionCarga result = new OperacionCarga
+            {
+               OperacionCargaId = this.OperacionCargaId_DTO,
+               OperarioId = this.OperarioId_DTO,
+               EquipoId = this.EquipoId_DTO,
+               FechaOperacion = this.FechaOperacion_DTO,
+               Descripcion = this.Descripcion_DTO,
+               RefrigeranteManipulado = this.RefrigeranteManipulado_DTO,
+               Recuperacion = this.Recuperacion_DTO,
+               Equipo = this.Equipo_DTO,
+               Operario = this.Operario_DTO
+            };
+            return result;
+        }
     }
 }
