@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:Refrigerantes.View"
         xmlns:viewModel="clr-namespace:Refrigerantes.ViewModel"
         mc:Ignorable="d"
-        Title="VentanaPrincipalView" Height="450" Width="800"
+        Title="VentanaPrincipalView" Height="800" Width="800"
         WindowStartupLocation = "CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
-        Background="Transparent">
+        Background="Transparent"
+        MouseDown="Window_MouseDown">
 
     <Window.DataContext>
         <viewModel:VentanaPrincipalViewModel/>

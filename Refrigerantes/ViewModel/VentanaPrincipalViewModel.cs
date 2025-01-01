@@ -13,7 +13,7 @@ using System.Windows.Input;
 
 namespace Refrigerantes.ViewModel
 {
-    public class VentanaPrincipalViewModel :BaseViewModel
+    public class VentanaPrincipalViewModel : BaseViewModel
     {
         private OperarioDTO? _operario;
         private BaseViewModel currentChildView;

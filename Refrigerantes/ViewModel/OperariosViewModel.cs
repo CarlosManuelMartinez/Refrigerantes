@@ -216,21 +216,21 @@ namespace Refrigerantes.ViewModel
         }
         private void PerformFilterOperarios(object? parameter)
         {
-            TablaOperarios.DefaultView.RowFilter = String.Format("Name like '%{0}%' ", Busqueda);
+            TablaOperarios.DefaultView.RowFilter = String.Format("Nombre like '%{0}%' ", Busqueda);
         }
 
         private void PerformSelectedItemChangedCommand(object? parameter = null)
         {
             if (FilaSeleccionada != null)
             {
-                Debug.WriteLine("PerformSelectedItemChangedCommand:" + "Selected:" + FilaSeleccionada["ProductName"].ToString());
-                OperarioId = 
+                Debug.WriteLine("PerformSelectedItemChangedCommand:" + "Selected:" + FilaSeleccionada["Nombre"].ToString());
+
                 Dni = FilaSeleccionada["Dni"].ToString();
                 Nombre = FilaSeleccionada["Nombre"].ToString();
                 Apellido1 = FilaSeleccionada["Apellido1"].ToString();
                 Apellido2 = FilaSeleccionada["Apellido2"].ToString();
                 Email = FilaSeleccionada["Email"].ToString();
-                Password = FilaSeleccionada["Password"].ToString();
+                Password = PASSWORD_POR_DEFECTO;
                 CategoriaSeleccionada = Categorias.FirstOrDefault(x => x.CategoriaProfesionalId == (int)FilaSeleccionada["CategoriaId"]);
 
             }
@@ -268,11 +268,13 @@ namespace Refrigerantes.ViewModel
 
             dtable.Columns.Add("OperarioId", typeof(int));
             dtable.Columns.Add("Dni", typeof(string));
-            dtable.Columns.Add("Nombre", typeof(int));
-            dtable.Columns.Add("Apellido1", typeof(int));
+            dtable.Columns.Add("Nombre", typeof(string));
+            dtable.Columns.Add("Apellido1", typeof(string));
             dtable.Columns.Add("Apellido2", typeof(string));
-            dtable.Columns.Add("Email", typeof(int));
-            dtable.Columns.Add("CategoriaSeleccionada", typeof(int));
+            dtable.Columns.Add("Email", typeof(string));
+            dtable.Columns.Add("Password", typeof(string));
+            dtable.Columns.Add("CategoriaProfesional", typeof(string));
+            dtable.Columns.Add("CategoriaId", typeof(int));
 
             foreach (OperarioDTO operario in Operarios)
             {
@@ -286,7 +288,9 @@ namespace Refrigerantes.ViewModel
                     operario.Apellido1_DTO,
                     operario.Apellido2_DTO,
                     operario.Email_DTO,
-                    s_categoriaProfesional);
+                    operario.Password_DTO,
+                    s_categoriaProfesional,
+                    operario.CategoriaProfesionalId_DTO);
             }
 
             TablaOperarios = dtable;
