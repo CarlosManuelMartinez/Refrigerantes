@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Refrigerantes.Model;
 using Refrigerantes.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Refrigerantes.Services
 {
@@ -17,8 +18,30 @@ namespace Refrigerantes.Services
             disposed = false;
         }
 
-        public List<OperacionDeCargaDTO> ListarOperaciones
-            ()
+        public List<OperacionDeCargaDTO> ListarOperaciones()
+        {
+            using (var context = new RefrigerantesContext())
+            {
+                // Mapear manualmente los datos de la entidad al DTO
+                var listaOperaciones = context.OperacionCargas
+                    .Select(operacion => new OperacionDeCargaDTO
+                    {
+                        OperacionCargaId_DTO = operacion.OperacionCargaId,
+                        OperarioId_DTO = operacion.OperarioId,
+                        EquipoId_DTO = operacion.EquipoId,
+                        FechaOperacion_DTO = operacion.FechaOperacion,
+                        Descripcion_DTO = operacion.Descripcion,
+                        RefrigeranteManipulado_DTO = operacion.RefrigeranteManipulado,
+                        Recuperacion_DTO = operacion.Recuperacion,
+                        Equipo_DTO = operacion.Equipo,
+
+                    }).ToList();
+
+                return listaOperaciones;
+            }
+        }
+
+        public List<OperacionDeCargaDTO> ListarOperacionesPorInstalacion(int idInstalacion)
         {
             using (var context = new RefrigerantesContext())
             {
@@ -39,6 +62,7 @@ namespace Refrigerantes.Services
                 return listaOperaciones;
             }
         }
+
 
         public List<OperacionDeCargaDTO> ListarOperacionesOperarioEquipo()
         {
@@ -84,6 +108,26 @@ namespace Refrigerantes.Services
                 };
 
             }
+        }
+
+        public void InsertarOperacionDeCargaADO(OperacionDeCargaDTO operacion)
+        {
+            using (var context = new RefrigerantesContext())
+            {
+                context.Entry(operacion.ToModel()).State = EntityState.Added;
+                context.SaveChanges();
+            }
+                
+        }
+
+        public void ActualizarOperacionDeCargaADO(OperacionDeCargaDTO operacion)
+        {
+            using (var context = new RefrigerantesContext())
+            {
+                context.Entry(operacion.ToModel()).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+
         }
 
         public void Dispose()

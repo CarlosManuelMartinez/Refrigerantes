@@ -11,6 +11,8 @@ namespace Refrigerantes.Services.Interfaces
     {
         List<RefrigeranteDTO> ListarRefrigerantes();
         RefrigeranteDTO RefrigerantePorId(int id);
-
+        void BorrarRefrigeranteADO(int id);
+        void ActualizarRefrigeranteADO(RefrigeranteDTO refrigerante);
+        void InsertarRefrigeranteADO(RefrigeranteDTO refrigerante);
     }
 }

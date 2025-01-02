@@ -40,7 +40,6 @@ namespace Refrigerantes.ViewModel
         public ICommand ModificarCommand { get; }
         public ICommand GuardarCommand { get; }
         public ICommand BorrarCommand { get; }
-
         public ICommand LimpiarCommand { get; }
         public ICommand SelectedItemChangedCommand { get; }
         public ICommand FiltrarCommand { get; }
@@ -348,7 +347,7 @@ namespace Refrigerantes.ViewModel
                 BorrarOperario(OperarioId);
             }
         }
-
+        //LLAMADAS A ADO 
         private void BorrarOperario(int id)
         {
             using (OperarioADO operarioADO = new())

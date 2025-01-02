@@ -12,5 +12,8 @@ namespace Refrigerantes.Services.Interfaces
         List<OperarioDTO> ListarOperariosADO();
         OperarioDTO OperarioPorIdADO(int id);
         OperarioDTO OperarioPorEmailADO(string email);
+        void InsertarOperarioADO(OperarioDTO operarioDTO);
+        void ActualizarOperarioADO(OperarioDTO operarioDTO);
+        void BorrarOperarioADO(int id);
     }
 }

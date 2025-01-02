@@ -8,8 +8,6 @@
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="800">
 
-
-
     <UserControl.Resources>
         <!--SEGUNDA FORMA DE VALIDATION TEMPLATE-->
         <ControlTemplate x:Key="ValidationErrorTemplate">
@@ -34,7 +32,7 @@
             </StackPanel>
         </ControlTemplate>
     </UserControl.Resources>
-    
+
     <interactiv:Interaction.Triggers>
         <interactiv:EventTrigger EventName="Loaded">
             <interactiv:InvokeCommandAction Command="{Binding CargarCommand}"/>

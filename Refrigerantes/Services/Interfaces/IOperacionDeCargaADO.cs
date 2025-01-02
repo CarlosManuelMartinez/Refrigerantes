@@ -12,6 +12,8 @@ namespace Refrigerantes.Services.Interfaces
         List<OperacionDeCargaDTO> ListarOperaciones();
         List<OperacionDeCargaDTO> ListarOperacionesOperarioEquipo();
         OperacionDeCargaDTO OperacionPorId(int id);
+        void ActualizarOperacionDeCargaADO(OperacionDeCargaDTO operacion);
+        void InsertarOperacionDeCargaADO(OperacionDeCargaDTO operacion);
 
     }
 }
