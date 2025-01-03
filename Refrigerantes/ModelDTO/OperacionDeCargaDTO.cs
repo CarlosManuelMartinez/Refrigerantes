@@ -27,8 +27,8 @@ namespace Refrigerantes.ModelDTO
         public  Operario Operario_DTO { get; set; } = null!;
         public  Equipo Equipo_DTO { get; set; } = null!;
 
-
         public OperacionDeCargaDTO() { }
+
         public OperacionDeCargaDTO(int operacionCargaId, int operarioId, int equipoId, DateTime fechaOperacion, string descripcion, decimal refrigeranteManipulado, bool recuperacion)
         {
             OperacionCargaId_DTO = operacionCargaId;
@@ -40,7 +40,18 @@ namespace Refrigerantes.ModelDTO
             Recuperacion_DTO = recuperacion;
         }
 
-        public OperacionDeCargaDTO(int operacionCargaId_DTO, int operarioId_DTO, int equipoId_DTO, DateTime fechaOperacion_DTO, string descripcion_DTO, decimal refrigeranteManipulado_DTO, bool recuperacion_DTO, Operario operario, Equipo equipo) : this(operacionCargaId_DTO, operarioId_DTO, equipoId_DTO, fechaOperacion_DTO, descripcion_DTO, refrigeranteManipulado_DTO, recuperacion_DTO)
+        public OperacionDeCargaDTO(int operarioId, int equipoId, DateTime fechaOperacion, string descripcion, decimal refrigeranteManipulado, bool recuperacion)
+        {
+            OperarioId_DTO = operarioId;
+            EquipoId_DTO = equipoId;
+            FechaOperacion_DTO = fechaOperacion;
+            Descripcion_DTO = descripcion;
+            RefrigeranteManipulado_DTO = refrigeranteManipulado;
+            Recuperacion_DTO = recuperacion;
+        }
+
+        public OperacionDeCargaDTO(int operacionCargaId, int operarioId, int equipoId, DateTime fechaOperacion, string descripcion, decimal refrigeranteManipulado, bool recuperacion, Operario operario, Equipo equipo)
+            : this(operacionCargaId, operarioId, equipoId, fechaOperacion, descripcion, refrigeranteManipulado, recuperacion)
         {
             Operario_DTO = operario;
             Equipo_DTO = equipo;

@@ -34,6 +34,7 @@ namespace Refrigerantes.Services
                         RefrigeranteManipulado_DTO = operacion.RefrigeranteManipulado,
                         Recuperacion_DTO = operacion.Recuperacion,
                         Equipo_DTO = operacion.Equipo,
+                        Operario_DTO = operacion.Operario,
 
                     }).ToList();
 

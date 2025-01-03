@@ -3,8 +3,146 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:interactiv="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:validaciones="clr-namespace:Refrigerantes.Validations"
              xmlns:local="clr-namespace:Refrigerantes.View"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="800" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <!--SEGUNDA FORMA DE VALIDATION TEMPLATE-->
+        <ControlTemplate x:Key="ValidationErrorTemplate">
+            <StackPanel>
+                <Border BorderBrush="Red" BorderThickness="1">
+                    <!-- Placeholder for the TextBox itself -->
+                    <AdornedElementPlaceholder x:Name="AdornedElement"/>
+                </Border>
+                <Border Background="White"
+                        BorderBrush="Red"
+                        Padding="4"
+                        BorderThickness="1,0,1,1"
+                        HorizontalAlignment="Left">
+                    <ItemsControl ItemsSource="{Binding}" HorizontalAlignment="Left">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding ErrorContent}" Foreground="Red"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+            </StackPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
+
+    <interactiv:Interaction.Triggers>
+        <interactiv:EventTrigger EventName="Loaded">
+            <interactiv:InvokeCommandAction Command="{Binding CargarCommand}"/>
+        </interactiv:EventTrigger>
+    </interactiv:Interaction.Triggers>
+
+    <StackPanel Background="Transparent">
+        <!--BUSCADOR-->
+        <GroupBox Name="Buscador" Grid.Row="0"
+                  Header="Buscador" Margin="10"
+                  Background="{StaticResource colorFondo}"
+                  Foreground="{StaticResource colorTextosBotones}">
+
+            <TextBox Name="tbBuscador" HorizontalAlignment="Right"
+                     Width="300"
+                     Margin="5"
+                     Height="27"
+                     Text ="{Binding Busqueda, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     />
+            <interactiv:Interaction.Triggers>
+                <interactiv:EventTrigger EventName="KeyUp">
+                    <interactiv:InvokeCommandAction Command="{Binding FiltrarCommand}" />
+                </interactiv:EventTrigger>
+            </interactiv:Interaction.Triggers>
+        </GroupBox>
+
+        <!--DATAGRID OPERACIONES-->
+        <GroupBox  x:Name="Operaciones" Header ="Operaciones" Margin="10" Background="{StaticResource colorFondo}" Foreground="{StaticResource colorTextosBotones}">
+            <DataGrid x:Name="DataGridOperaciones" AutoGenerateColumns="False"
+                      ItemsSource="{Binding TablaOperaciones}"
+                      CanUserDeleteRows="false"
+                      CanUserAddRows="False"
+                      CanUserResizeRows="False"
+                      CanUserResizeColumns="True"
+                      Height="200"
+                      Margin="10"
+                      SelectedItem="{Binding FilaSeleccionada}"
+                      IsReadOnly="True"
+                      HorizontalScrollBarVisibility="Auto"
+                      SelectionMode="Single"  >
+
+                <interactiv:Interaction.Triggers>
+                    <interactiv:EventTrigger EventName="SelectionChanged">
+                        <interactiv:InvokeCommandAction Command="{Binding SelectedItemChangedCommand}"  CommandParameter="{Binding ElementName=DataGridOperaciones, Path=SelectedItem}"/>
+                    </interactiv:EventTrigger>
+                </interactiv:Interaction.Triggers>
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID Operación" Binding="{Binding Path=OperacionId}" Width="100"  IsReadOnly="True" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="ID Operario" Binding="{Binding Path=OperarioId}" Width="100" IsReadOnly="True" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="ID Equipo" Binding="{Binding Path=EquipoId}" Width="100" IsReadOnly="True" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="Descripción" Binding="{Binding Path=Descripcion}"  Width="100" IsReadOnly="True" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="Tipo carga" Binding="{Binding Path=TipoCarga}"  Width="100" IsReadOnly="True" Visibility="Hidden"/>
+
+                    <DataGridTextColumn Header="NºSerie equipo" Binding="{Binding Path=Modelo}" Width="100" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Operario" Binding="{Binding Path=Operario}" Width="100" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding Path=FechaOperacion}"  Width="100" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Refrigerante Manipulado" Binding="{Binding Path=RefrigeranteManipulado}"  Width="200" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Recuperación" Binding="{Binding Path=IsRecuperacion}" Width="100" IsReadOnly="True"/>
+
+
+
+                    <!--BOTON MODIFICAR-->
+                    <DataGridTemplateColumn Width="100" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="ButtonEdit"
+                                        Style="{StaticResource actionButton}"
+                                        Command="{Binding Path=DataContext.ModificarCommand,
+                                        RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Modificar" FontSize="8"/>
+
+                                        <!--<fa:IconImage Icon="Pencil" Style="{StaticResource actionButtonIcon}"/>-->
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <!--BOTON BORRAR-->
+                    <DataGridTemplateColumn Width="100" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button x:Name="ButtonDelete"
+                                        Style="{StaticResource actionButton}"
+                                        Command="{Binding Path=DataContext.BorrarCommand, RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="Eliminar" FontSize="8"/>
+                                        <!--<fa:IconImage Icon="Trash" Style="{StaticResource actionButtonIcon}"/>-->
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+
+
+
+
+
+
+
+
+
+    </StackPanel>
+
 
 </UserControl>

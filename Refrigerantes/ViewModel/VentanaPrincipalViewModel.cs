@@ -73,7 +73,7 @@ namespace Refrigerantes.ViewModel
 
         private void ExecuteMostrarOperacionesViewCommand(object obj)
         {
-            OperacionesViewModel operacionesViewModel = new();
+            OperacionDeCargaViewModel operacionesViewModel = new();
             CurrentChildView = operacionesViewModel;
         }
 

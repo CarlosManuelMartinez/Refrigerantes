@@ -24,6 +24,9 @@
         <DataTemplate DataType="{x:Type viewModel:RefrigerantesViewModel}">
             <local:RefrigerantesView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:OperacionDeCargaViewModel}">
+            <local:OperacionDeCargaView/>
+        </DataTemplate>
     </Window.Resources>
 
     <!--BORDE PARA LA IMAGEN -->

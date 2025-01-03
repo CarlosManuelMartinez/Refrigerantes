@@ -1,8 +1,7 @@
+C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\Refrigerantes.dll
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\Refrigerantes.exe
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\Refrigerantes.deps.json
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\Refrigerantes.runtimeconfig.json
-C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\Refrigerantes.dll
-C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\Refrigerantes.pdb
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\Azure.Core.dll
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\Azure.Identity.dll
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\FontAwesome.Sharp.dll
@@ -61,6 +60,7 @@ C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\CustomControl\PasswordEnlazable.g.cs
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\MainWindow.g.cs
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\LoginView.g.cs
+C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\OperacionDeCargaView.g.cs
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\OperariosView.g.cs
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\RefrigerantesView.g.cs
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\VentanaPrincipalView.g.cs
@@ -74,6 +74,7 @@ C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\CustomControl\PasswordEnlazable.baml
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\MainWindow.baml
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\LoginView.baml
+C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\OperacionDeCargaView.baml
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\OperariosView.baml
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\RefrigerantesView.baml
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\View\VentanaPrincipalView.baml
@@ -87,4 +88,5 @@ C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\refint\Refrigerantes.dll
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Refrigerantes.pdb
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\Refrigerantes.genruntimeconfig.cache
+C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\bin\Debug\net6.0-windows\Refrigerantes.pdb
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\obj\Debug\net6.0-windows\ref\Refrigerantes.dll
