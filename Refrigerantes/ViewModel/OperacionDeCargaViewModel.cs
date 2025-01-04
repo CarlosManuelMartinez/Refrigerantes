@@ -220,7 +220,6 @@ namespace Refrigerantes.ViewModel
 
                     EquipoId = equipoSeleccionado?.EquipoId ?? 0;
                 }
-               
             }
         }
 
@@ -229,16 +228,12 @@ namespace Refrigerantes.ViewModel
             get { return operarioSeleccionado; }
             set
             {
-                
                 if (operarioSeleccionado != value){
                     operarioSeleccionado = value;
                     OnPropertyChanged(nameof(OperarioSeleccionado));
 
-
                     OperarioId = operarioSeleccionado?.OperarioId_DTO ?? 0;
                 }
-               
-               
             }
         }
 
@@ -262,15 +257,8 @@ namespace Refrigerantes.ViewModel
         //CanExecute
         private bool CanExecuteInsertarOperacion(object? parameter)
         {
-            Console.WriteLine($"opId{OperacionId}");
-            Console.WriteLine($"operarioId{OperarioId}");
-            Console.WriteLine($"EquipoId{EquipoId}");
-            Console.WriteLine($"FechaOperacionId{EquipoId}"); 
-            Console.WriteLine($"DescripcionId{Descripcion}");
-            Console.WriteLine($"RefrigeranteManipulado{RefrigeranteManipulado}");
-            Console.WriteLine($"IsRecuperacion{IsRecuperacion}");
+            
             return (
-                //OperacionId != 0 &&
                 OperarioId != 0 &&
                  EquipoId != 0 &&
                  FechaOperacion != null &&
@@ -349,8 +337,6 @@ namespace Refrigerantes.ViewModel
             IsRecuperacion = true;
             CargarOperaciones();
 
-            Debug.WriteLine("Cargando operarios");
-
             DataTable dtable = new DataTable();
 
             dtable.Columns.Add("OperacionId", typeof(int));
@@ -389,19 +375,14 @@ namespace Refrigerantes.ViewModel
         }
         private void PerformFilterOperacion(object? parameter)
         {
-            Debug.WriteLine("Estoy en filter");
-            // Limpia espacios adicionales en PalabraClave
             string palabraClaveLimpia = PalabraClave?.Trim();
 
-            // Verifica si PalabraClave no está vacía antes de aplicar el filtro
             if (!string.IsNullOrEmpty(palabraClaveLimpia))
             {
-                // Realiza la búsqueda de manera insensible a mayúsculas/minúsculas
                 TablaOperaciones.DefaultView.RowFilter = String.Format("Modelo like '%{0}%' ", palabraClaveLimpia);
             }
             else
             {
-                // Si PalabraClave está vacía, limpia el filtro
                 TablaOperaciones.DefaultView.RowFilter = string.Empty;
             }
         }
