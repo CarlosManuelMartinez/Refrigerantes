@@ -21,6 +21,7 @@ namespace Refrigerantes.Validations
             {
                 return new ValidationResult(false, e.Message);
             }
+
             try
             {
                 int anyo = Convert.ToInt32(value);

@@ -27,7 +27,7 @@ namespace Refrigerantes.Validations
             if ((((string)value).Length < Min) || (((string)value).Length > Max))
             {
                 return new ValidationResult(false,
-                    "El nombre debe contener al menos " + Min + " caracteres y no superar  " + Max + " caracteres.");
+                    "El nombre debe contener al menos " + Min + " caracteres y no superar los " + Max + " caracteres.");
             }
             return new ValidationResult(true, null);
         }

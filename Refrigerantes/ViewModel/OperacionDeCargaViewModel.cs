@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -32,15 +33,29 @@ namespace Refrigerantes.ViewModel
         private ObservableCollection<EquipoDTO> equipos;
         private EquipoDTO equipoSeleccionado;
         private OperarioDTO operarioSeleccionado;
+        private KeyValuePair<bool, string> tipoSeleccionado;
 
         private DataTable tablaOperaciones;
 
+
+        public Dictionary<bool, string> TiposDeCarga {  get; set; }
         public ICommand CargarCommand { get; }
         public ICommand ModificarCommand { get; }
         public ICommand GuardarCommand { get; }
         public ICommand LimpiarCommand { get; }
         public ICommand SelectedItemChangedCommand { get; }
         public ICommand FiltrarCommand { get; }
+
+        public KeyValuePair<bool, string> TipoSeleccionado
+        {
+            get {  return tipoSeleccionado; }
+            set 
+            {
+                tipoSeleccionado = value;
+                IsRecuperacion = value.Key;
+                OnPropertyChanged(nameof(tipoSeleccionado));
+            }
+        }
 
         public ObservableCollection<InstalacionDTO > Instalaciones 
         {
@@ -57,8 +72,12 @@ namespace Refrigerantes.ViewModel
             get { return isRecuperacion; }
             set
             {
-                isRecuperacion = value;
-                OnPropertyChanged(nameof(IsRecuperacion));
+                if (isRecuperacion != value) 
+                {
+                    isRecuperacion = value;
+                    TipoSeleccionado = TiposDeCarga.First(kv => kv.Key == value);
+                    OnPropertyChanged(nameof(IsRecuperacion));
+                }
             }
         }
 
@@ -108,7 +127,11 @@ namespace Refrigerantes.ViewModel
             set
             {
                 fechaOperacion = value;
-                OnErrorsChanged(nameof(FechaOperacion));
+                if(fechaOperacion == null)
+                {
+                    fechaOperacion = DateTime.Now;
+                }
+                OnPropertyChanged(nameof(FechaOperacion));
             }
         }
 
@@ -190,8 +213,14 @@ namespace Refrigerantes.ViewModel
             get { return equipoSeleccionado; }
             set
             {
-                equipoSeleccionado = value;
-                OnPropertyChanged(nameof(EquipoSeleccionado));
+                if (equipoSeleccionado != value )
+                {
+                    equipoSeleccionado = value;
+                    OnPropertyChanged(nameof(EquipoSeleccionado));
+
+                    EquipoId = equipoSeleccionado?.EquipoId ?? 0;
+                }
+               
             }
         }
 
@@ -200,15 +229,30 @@ namespace Refrigerantes.ViewModel
             get { return operarioSeleccionado; }
             set
             {
-                operarioSeleccionado = value;
-                OnPropertyChanged(nameof(OperarioSeleccionado));
+                
+                if (operarioSeleccionado != value){
+                    operarioSeleccionado = value;
+                    OnPropertyChanged(nameof(OperarioSeleccionado));
+
+
+                    OperarioId = operarioSeleccionado?.OperarioId_DTO ?? 0;
+                }
+               
+               
             }
         }
 
         public OperacionDeCargaViewModel()
         {
+            TiposDeCarga = new Dictionary<bool, string>
+            {
+                { true, "Recuperacion"},
+                {false, "Carga" }
+            };
+
             FechaOperacion = DateTime.Now;
-            GuardarCommand = new RelayCommand(PerformInsertarOperacion, CanExecuteInsertarOperacion);
+
+            GuardarCommand = new RelayCommand(PerformInsertarOperacion,CanExecuteInsertarOperacion);
             ModificarCommand = new RelayCommand(PerformModificarOperacion);
             LimpiarCommand = new RelayCommand(PerformLimpiarOperacion);
             CargarCommand = new RelayCommand(PerformCargarOperaciones);
@@ -218,37 +262,42 @@ namespace Refrigerantes.ViewModel
         //CanExecute
         private bool CanExecuteInsertarOperacion(object? parameter)
         {
-            return (OperacionId == 0
-                && OperarioId == 0
-                && EquipoId == 0
-                && FechaOperacion == null
-                && !string.IsNullOrEmpty(Descripcion)
-                && RefrigeranteManipulado == 0
-                && IsRecuperacion == null );
+            Console.WriteLine($"opId{OperacionId}");
+            Console.WriteLine($"operarioId{OperarioId}");
+            Console.WriteLine($"EquipoId{EquipoId}");
+            Console.WriteLine($"FechaOperacionId{EquipoId}"); 
+            Console.WriteLine($"DescripcionId{Descripcion}");
+            Console.WriteLine($"RefrigeranteManipulado{RefrigeranteManipulado}");
+            Console.WriteLine($"IsRecuperacion{IsRecuperacion}");
+            return (
+                //OperacionId != 0 &&
+                OperarioId != 0 &&
+                 EquipoId != 0 &&
+                 FechaOperacion != null &&
+                 !string.IsNullOrEmpty(Descripcion) &&
+                 RefrigeranteManipulado != 0 &&
+                 IsRecuperacion != null );
         }
         //Performs
         private void PerformSelectedItemChangedCommand(object? parameter = null)
         {
             if(FilaSeleccionada != null)
             {
-                foreach (DataColumn column in TablaOperaciones.Columns)
-                {
-                    Debug.WriteLine($"Columna: {column.ColumnName}");
-                }
-
+               
                 OperacionId = (int)FilaSeleccionada["OperacionId"];
                 OperarioId = (int)FilaSeleccionada["OperarioId"];
                 EquipoId = (int)FilaSeleccionada["EquipoId"];
                 FechaOperacion = (DateTime)FilaSeleccionada["FechaOperacion"];
-                Descripcion = FilaSeleccionada["EquipoId"].ToString();
+                Descripcion = FilaSeleccionada["Descripcion"].ToString();
                 RefrigeranteManipulado = (decimal)FilaSeleccionada["RefrigeranteManipulado"];
                 IsRecuperacion = (bool)FilaSeleccionada["IsRecuperacion"];
+                TipoSeleccionado = TiposDeCarga.FirstOrDefault(x => x.Key == IsRecuperacion);
+                OperarioSeleccionado = Operarios.FirstOrDefault(x => x.OperarioId_DTO == (int)FilaSeleccionada["OperarioId"]);
             }
         }
 
         private void PerformLimpiarOperacion(object? parameter = null)
         {
-            OperacionId = 0;
             OperarioId = 0;
             EquipoId = 0;
             FechaOperacion = DateTime.Now;
@@ -297,7 +346,7 @@ namespace Refrigerantes.ViewModel
             {
                 EquipoSeleccionado = Equipos[0];
             }
-
+            IsRecuperacion = true;
             CargarOperaciones();
 
             Debug.WriteLine("Cargando operarios");
@@ -318,8 +367,7 @@ namespace Refrigerantes.ViewModel
             foreach (OperacionDeCargaDTO operacion in Operaciones)
             {
                 string s_NombreOperario = operacion.Operario_DTO.Nombre;
-                //string s_NombreOperario = operacion.Operario_DTO.Nombre;
-                string s_Modelo = operacion.Equipo_DTO.Marca;
+                string s_Modelo = operacion.Equipo_DTO.Modelo;
                 string s_Recuperacion = operacion.Recuperacion_DTO == true ? "Gas recuperado" : "Recarga";
 
                 dtable.Rows.Add(
@@ -332,7 +380,7 @@ namespace Refrigerantes.ViewModel
                     operacion.Recuperacion_DTO,
                     s_Recuperacion,
                     s_Modelo,
-                    s_NombreOperario 
+                   s_NombreOperario
                 );
             }
 
@@ -341,7 +389,21 @@ namespace Refrigerantes.ViewModel
         }
         private void PerformFilterOperacion(object? parameter)
         {
-            TablaOperaciones.DefaultView.RowFilter = String.Format("Operario like '%{0}%' ", PalabraClave);
+            Debug.WriteLine("Estoy en filter");
+            // Limpia espacios adicionales en PalabraClave
+            string palabraClaveLimpia = PalabraClave?.Trim();
+
+            // Verifica si PalabraClave no está vacía antes de aplicar el filtro
+            if (!string.IsNullOrEmpty(palabraClaveLimpia))
+            {
+                // Realiza la búsqueda de manera insensible a mayúsculas/minúsculas
+                TablaOperaciones.DefaultView.RowFilter = String.Format("Modelo like '%{0}%' ", palabraClaveLimpia);
+            }
+            else
+            {
+                // Si PalabraClave está vacía, limpia el filtro
+                TablaOperaciones.DefaultView.RowFilter = string.Empty;
+            }
         }
 
         //Llamadas a ADO

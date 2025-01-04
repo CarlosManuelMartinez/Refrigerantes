@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:interactiv="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:validaciones="clr-namespace:Refrigerantes.Validations"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:Refrigerantes.View"
              mc:Ignorable="d"
              d:DesignHeight="800" d:DesignWidth="800">
@@ -51,7 +52,7 @@
                      Width="300"
                      Margin="5"
                      Height="27"
-                     Text ="{Binding Busqueda, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Text ="{Binding PalabraClave, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      />
             <interactiv:Interaction.Triggers>
                 <interactiv:EventTrigger EventName="KeyUp">
@@ -115,34 +116,183 @@
                     </DataGridTemplateColumn>
 
                     <!--BOTON BORRAR-->
-                    <DataGridTemplateColumn Width="100" CanUserResize="False">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button x:Name="ButtonDelete"
-                                        Style="{StaticResource actionButton}"
-                                        Command="{Binding Path=DataContext.BorrarCommand, RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Eliminar" FontSize="8"/>
-                                        <!--<fa:IconImage Icon="Trash" Style="{StaticResource actionButtonIcon}"/>-->
-                                    </StackPanel>
-                                </Button>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    <!--<DataGridTemplateColumn Width="100" CanUserResize="False">
+                    <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                    <Button x:Name="ButtonDelete"
+                    Style="{StaticResource actionButton}"
+                    Command="{Binding Path=DataContext.BorrarCommand, RelativeSource={RelativeSource FindAncestor,AncestorType=UserControl}}">
+                    <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Eliminar" FontSize="8"/>
+                    -->
+                    <!--<fa:IconImage Icon="Trash" Style="{StaticResource actionButtonIcon}"/>-->
+                    <!--
+                    </StackPanel>
+                    </Button>
+                    </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>-->
                 </DataGrid.Columns>
             </DataGrid>
         </GroupBox>
 
+        <!--GROUP BOX OPERACION SELECCIONADA-->
+        <GroupBox  x:Name="operacionSeleccionada"
+                  Header="Operacion Seleccionada"
+                  Margin="10" Background="{StaticResource colorFondo}"
+                  Foreground="{StaticResource colorTextosBotones}">
+            <Grid Height="250">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="325"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!--DESCRIPCION-->
+                <Label Content="Breve Descripcion"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       Grid.Column="1" Grid.Row="0"/>
+                <TextBox Grid.Row="0"
+                         Grid.Column="0"
+                         x:Name="tbDescripcion"
+                         Height="27" Margin="5"
+                         Width="300" HorizontalAlignment="Left"
+                         Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Path="Descripcion" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules>
+                                <validaciones:NombreValidation Min="3" Max="50"/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <!--TIPO CARGA-->
+                <Label Content="Tipo de Operacion" HorizontalAlignment="Left" VerticalContentAlignment="Center" Grid.Row="1" Grid.Column="1" />
+                <ComboBox x:Name="cbTipo"
+                          Grid.Row="1"
+                          Grid.Column="0"
+                          Margin="5"
+                          Width="300"
+                          HorizontalAlignment="Left"
+                          Height="27"
+                          ItemsSource="{Binding Path=TiposDeCarga}"
+                          SelectedItem="{Binding Path=TipoSeleccionado, Mode=TwoWay}"
+                          DisplayMemberPath="Value">
+                </ComboBox>
 
 
+                <!--FECHA-->
+                <Label Content="Fecha"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       Grid.Row="2" Grid.Column="1"/>
+                <DatePicker
+                    Name="FechaOperacionDatePicker"
+                    Margin="5,6,0,5" Width="300"
+                    HorizontalAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    Grid.Row="2" Grid.Column="0"
+                    SelectedDate="{Binding FechaOperacion, Mode=TwoWay}"
+                    DisplayDateEnd="12/31/2025"
+                    DisplayDateStart="{x:Static sys:DateTime.Today}"
+                    IsTodayHighlighted="True"/>
+                <!--Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}"-->
+
+                <!--<Label Content="Fecha"
+                HorizontalAlignment="Left"
+                VerticalContentAlignment="Center"
+                Grid.Row="2" Grid.Column="1"/>
+
+                <TextBox
+                Grid.Row="2" Grid.Column="0"
+                x:Name="tbFechaOperacion" Height="27"
+                Margin="5,6,0,5" Width="300"
+                HorizontalAlignment="Left"
+                Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}">
+                <TextBox.Text>
+                <Binding Path="FechaOperacion" UpdateSourceTrigger="PropertyChanged" >
+                <Binding.ValidationRules>
+                <validaciones:NombreValidation Min="3" Max="50"/>
+                </Binding.ValidationRules>
+                </Binding>
+                </TextBox.Text>
+                </TextBox>-->
+
+                <!--REFRIGERANTE MANIPULADO-->
+                <Label Content="Refrigerante Manipulado"
+                       HorizontalAlignment="Left"
+                       VerticalContentAlignment="Center"
+                       Grid.Row="3" Grid.Column="1"/>
+                <TextBox Grid.Row="3" Grid.Column="0"
+                         x:Name="tbRefrigeranteManipulado" Height="27"
+                         Margin="5,6,0,5" Width="300"
+                         HorizontalAlignment="Left"
+                         Validation.ErrorTemplate="{StaticResource ValidationErrorTemplate}">
+                    <TextBox.Text>
+                        <Binding Path="RefrigeranteManipulado" UpdateSourceTrigger="PropertyChanged" >
+                            <Binding.ValidationRules>
+                                <validaciones:CargaValidation/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
 
 
+                <!--EQUIPOS-->
+                <Label Content="Equipo" HorizontalAlignment="Left" VerticalContentAlignment="Center" Grid.Row="4" Grid.Column="1" />
+                <ComboBox x:Name="cbEquipos"
+                          Grid.Row="4"
+                          Grid.Column="0"
+                          Margin="5"
+                          Width="300"
+                          HorizontalAlignment="Left"
+                          Height="27"
+                          ItemsSource= "{Binding Path=Equipos}"
+                          SelectedItem= "{Binding Path=EquipoSeleccionado}"
+                          DisplayMemberPath="Modelo" >
+                </ComboBox>
 
+                <!--OPERARIOS-->
+                <Label Content="Operario" HorizontalAlignment="Left" VerticalContentAlignment="Center" Grid.Row="5" Grid.Column="1" />
+                <ComboBox x:Name="cbOperarios"
+                          Grid.Row="5"
+                          Grid.Column="0"
+                          Margin="5"
+                          Width="300"
+                          HorizontalAlignment="Left"
+                          Height="27"
+                          ItemsSource= "{Binding Path=Operarios}"
+                          SelectedItem= "{Binding Path=OperarioSeleccionado}"
+                          DisplayMemberPath="Nombre_DTO" >
+                </ComboBox>
+            </Grid>
+        </GroupBox>
 
-
-
+        <!--STACK BOTONES BORRAR CAMPOS Y INSERTAR-->
+        <StackPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Style="{StaticResource actionButton}" x:Name="ButtonInsert" Height="30" Width="80" Command="{Binding GuardarCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Insertar"
+                               Style="{StaticResource actionButtonText}"
+                               Margin="5"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource actionButton}" x:Name="ButtonCancel" Height="30" Width="80" Command="{Binding LimpiarCommand}" Margin="5,0,10,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Borrar campos"
+                               Style="{StaticResource actionButtonText}"
+                               Margin="5"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
 
     </StackPanel>
-
 
 </UserControl>

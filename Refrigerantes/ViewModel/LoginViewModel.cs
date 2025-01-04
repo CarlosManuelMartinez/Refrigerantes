@@ -68,7 +68,7 @@ namespace Refrigerantes.ViewModel
 
         private bool CanExecuteLoginCommand(object obj)
         {
-            Debug.WriteLine("Can execute");
+            Debug.WriteLine("Can execute LOGIN");
             bool valid;
 
             if (Operario == null || Password == null || Password.Length < 3)
