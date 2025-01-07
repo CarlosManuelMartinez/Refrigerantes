@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Refrigerantes.View"
         xmlns:viewModel="clr-namespace:Refrigerantes.ViewModel"
         mc:Ignorable="d"
-        Title="VentanaPrincipalView" Height="800" Width="800"
+        Title="VentanaPrincipalView" Height="800" Width="1150"
         WindowStartupLocation = "CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -26,6 +26,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type viewModel:OperacionDeCargaViewModel}">
             <local:OperacionDeCargaView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+            <local:HomeView/>
         </DataTemplate>
     </Window.Resources>
 
@@ -92,7 +95,7 @@
                             Command ="{Binding MostrarOperariosViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Resources/icon_staff.png" Style="{StaticResource menuBotonIcono}"/>
+                            <Image Source="/Resources/icon_operario.png" Style="{StaticResource menuBotonIcono}"/>
                             <TextBlock Text="OPERARIOS" Style="{StaticResource menuBotonTexto}"/>
                         </StackPanel>
                     </Button>
@@ -119,14 +122,14 @@
                         </StackPanel>
                     </Button>
 
-                    <!--BOTON INSTALACIONES-->
+                    <!--BOTON IMPUESTOS-->
                     <Button Style="{StaticResource botonesMenu}"
                             Tag="{StaticResource colorBordes}"
                             Command ="{Binding MostrarInformesViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Resources/icon_informes.png" Style="{StaticResource menuBotonIcono}"/>
-                            <TextBlock Text="INSTALACIONES" Style="{StaticResource menuBotonTexto}"/>
+                            <TextBlock Text="IMPUESTOS" Style="{StaticResource menuBotonTexto}"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -223,7 +226,6 @@
                         <ContentControl Content="{Binding CurrentChildView}"
                                         Grid.Row="2"
                                         Margin="25">
-
                         </ContentControl>
 
                     </Grid>

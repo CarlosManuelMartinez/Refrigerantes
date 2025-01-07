@@ -111,6 +111,30 @@ namespace Refrigerantes.Services
             }
         }
 
+        public OperarioDTO OPerarioMasActivoADO()
+        {
+            using (var context = new RefrigerantesContext())
+            {
+                var operarioIdMasActivo = context.OperacionCargas
+                    .GroupBy(op => op.OperarioId)
+                    .Select(group => new
+                    {
+                        OperarioId = group.Key,
+                        OperacionesCount = group.Count()
+                    }).OrderByDescending(x => x.OperacionesCount)
+                    .FirstOrDefault();
+
+                if (operarioIdMasActivo == null)
+                {
+                    return null;
+                }
+
+                Operario operario = context.Operarios.FirstOrDefault(o => o.OperarioId == operarioIdMasActivo.OperarioId);
+
+                return new OperarioDTO( operario);
+            }
+        }
+       
         public void InsertarOperacionDeCargaADO(OperacionDeCargaDTO operacion)
         {
             using (var context = new RefrigerantesContext())
@@ -137,7 +161,6 @@ namespace Refrigerantes.Services
             GC.SuppressFinalize(this);
         }
 
-        // Protected implementation of Dispose pattern.
         protected virtual void Dispose(bool disposing)
         {
             if (disposed)

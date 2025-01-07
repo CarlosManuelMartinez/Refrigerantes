@@ -51,5 +51,12 @@ namespace Refrigerantes.ModelDTO
             Refrigerante = refrigerante;
             TipoEquipo = tipoEquipo;
         }
+
+        public EquipoDTO(int equipoId, decimal cargaRefrigerante)
+        {
+            EquipoId = equipoId;
+            CargaRefrigerante = cargaRefrigerante;
+            
+        }
     }
 }

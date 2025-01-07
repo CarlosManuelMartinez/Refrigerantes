@@ -17,11 +17,13 @@ namespace Refrigerantes.Validations
             try
             {
                 if (value == null)
+                {
                     return new ValidationResult(false, "El valor no puede ser nulo.");
+
+                }
 
                 decimal cargaValor;
 
-                // Intentar convertir el valor a decimal
                 if (decimal.TryParse(value.ToString(), out cargaValor))
                 {
                     if (cargaValor > CARGA_MAXIMA || cargaValor < CARGA_MIMNIMA)

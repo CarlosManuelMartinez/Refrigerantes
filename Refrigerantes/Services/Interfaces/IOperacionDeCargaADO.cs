@@ -14,6 +14,5 @@ namespace Refrigerantes.Services.Interfaces
         OperacionDeCargaDTO OperacionPorId(int id);
         void ActualizarOperacionDeCargaADO(OperacionDeCargaDTO operacion);
         void InsertarOperacionDeCargaADO(OperacionDeCargaDTO operacion);
-
     }
 }

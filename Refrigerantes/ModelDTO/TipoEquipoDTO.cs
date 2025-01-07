@@ -12,7 +12,6 @@ namespace Refrigerantes.ModelDTO
     public class TipoEquipoDTO
     {
         public int TipoEquipoId_DTO { get; set; }
-        
         public string TipoEquipo1_DTO { get; set; }
         public  List<Equipo> Equipos_DTO { get; set; } = new List<Equipo>();
 

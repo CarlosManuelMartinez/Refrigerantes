@@ -37,7 +37,6 @@ namespace Refrigerantes.CustomControl
         /// <returns>String en codificacion SHA256</returns>
         private byte[] Encriptar(string texto)
         {
-            string textoEncriptado = "";
             using (SHA256 mySHA256 = SHA256.Create())
             {
                 byte[] hashValue;

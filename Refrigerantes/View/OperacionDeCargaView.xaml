@@ -276,15 +276,24 @@
         </GroupBox>
 
         <!--STACK BOTONES BORRAR CAMPOS Y INSERTAR-->
-        <StackPanel Height="30" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Style="{StaticResource actionButton}" x:Name="ButtonInsert" Height="30" Width="80" Command="{Binding GuardarCommand}">
+        <StackPanel Height="30"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button Style="{StaticResource actionButton}"
+                    x:Name="ButtonInsert"
+                    Height="30" Width="80"
+                    Command="{Binding GuardarCommand}">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Insertar"
                                Style="{StaticResource actionButtonText}"
                                Margin="5"/>
                 </StackPanel>
             </Button>
-            <Button Style="{StaticResource actionButton}" x:Name="ButtonCancel" Height="30" Width="80" Command="{Binding LimpiarCommand}" Margin="5,0,10,0">
+            <Button Style="{StaticResource actionButton}"
+                    x:Name="ButtonCancel"
+                    Height="30"
+                    Width="80"
+                    Command="{Binding LimpiarCommand}" Margin="5,0,10,0">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Borrar campos"
                                Style="{StaticResource actionButtonText}"

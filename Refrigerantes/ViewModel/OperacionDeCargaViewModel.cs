@@ -248,7 +248,7 @@ namespace Refrigerantes.ViewModel
             FechaOperacion = DateTime.Now;
 
             GuardarCommand = new RelayCommand(PerformInsertarOperacion,CanExecuteInsertarOperacion);
-            ModificarCommand = new RelayCommand(PerformModificarOperacion);
+            ModificarCommand = new RelayCommand(PerformModificarOperacion, CanExecuteModificarOperacion);
             LimpiarCommand = new RelayCommand(PerformLimpiarOperacion);
             CargarCommand = new RelayCommand(PerformCargarOperaciones);
             FiltrarCommand = new RelayCommand(PerformFilterOperacion);
@@ -259,13 +259,27 @@ namespace Refrigerantes.ViewModel
         {
             
             return (
-                OperarioId != 0 &&
+                 OperarioId != 0 &&
                  EquipoId != 0 &&
                  FechaOperacion != null &&
                  !string.IsNullOrEmpty(Descripcion) &&
                  RefrigeranteManipulado != 0 &&
                  IsRecuperacion != null );
         }
+
+        private bool CanExecuteModificarOperacion(object? parameter)
+        {
+
+            return (
+                 OperacionId != 0 &&
+                 OperarioId != 0 &&
+                 EquipoId != 0 &&
+                 FechaOperacion != null &&
+                 !string.IsNullOrEmpty(Descripcion) &&
+                 RefrigeranteManipulado != 0 &&
+                 IsRecuperacion != null);
+        }
+
         //Performs
         private void PerformSelectedItemChangedCommand(object? parameter = null)
         {
@@ -297,7 +311,7 @@ namespace Refrigerantes.ViewModel
         private void PerformModificarOperacion(object? parameter = null)
         {
             var result = MessageBox.Show("¿Desea realmente modificar este registro?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            OperacionDeCargaDTO operacion = new( OperarioId, EquipoId, FechaOperacion, Descripcion, RefrigeranteManipulado, IsRecuperacion);
+            OperacionDeCargaDTO operacion = new(OperacionId, OperarioId, EquipoId, FechaOperacion, Descripcion, RefrigeranteManipulado, IsRecuperacion);
 
             if (result == MessageBoxResult.Yes)
             {

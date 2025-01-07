@@ -12,18 +12,12 @@ namespace Refrigerantes.ModelDTO
     public class OperacionDeCargaDTO
     {
         public int OperacionCargaId_DTO { get; set; }
-
         public int OperarioId_DTO { get; set; }
-
         public int EquipoId_DTO { get; set; }
         public DateTime FechaOperacion_DTO { get; set; }
-
         public string Descripcion_DTO { get; set; } = null!;
-
         public decimal RefrigeranteManipulado_DTO { get; set; }
-
         public bool Recuperacion_DTO { get; set; }
-
         public  Operario Operario_DTO { get; set; } = null!;
         public  Equipo Equipo_DTO { get; set; } = null!;
 

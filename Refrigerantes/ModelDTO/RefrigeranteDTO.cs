@@ -13,13 +13,9 @@ namespace Refrigerantes.ModelDTO
     public class RefrigeranteDTO
     {
         public int RefrigeranteId_DTO { get; set; }
-
         public string Nombre_DTO { get; set; } = null!;
-
         public decimal Co2eq_DTO { get; set; }
-
         public string Clase_DTO { get; set; } = null!;
-
         public string Grupo_DTO { get; set; } = null!;
 
         public RefrigeranteDTO() { }
@@ -32,13 +28,11 @@ namespace Refrigerantes.ModelDTO
             Clase_DTO = clase;
             Grupo_DTO = grupo;
         }
-
         public RefrigeranteDTO(string nombre, decimal co2eq, string clase, string grupo)
             :this(0, nombre, co2eq, clase, grupo)
         {
 
         }
-
         public Refrigerante ToModel()
         {
             Refrigerante result = new Refrigerante
@@ -50,9 +44,7 @@ namespace Refrigerantes.ModelDTO
                 Grupo = this.Grupo_DTO,
 
             };
-
             return result;
         }
-
     }
 }

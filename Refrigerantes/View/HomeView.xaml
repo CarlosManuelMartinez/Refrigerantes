@@ -1,0 +1,141 @@
+﻿<UserControl x:Class="Refrigerantes.View.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:customcontrol="clr-namespace:Refrigerantes.CustomControl"
+             xmlns:livecharts="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:local="clr-namespace:Refrigerantes.View"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <!--<customcontrol:DatosMuestra>
+
+    </customcontrol:DatosMuestra>-->
+
+    <Grid Background="{StaticResource colorFondo}">
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="row0" Height="125"/>
+            <RowDefinition x:Name="row1" Height="500"/>
+            <RowDefinition x:Name="row2" Height="50"/>
+        </Grid.RowDefinitions>
+        <Border Background="Transparent"/>
+        <Grid Grid.Row="0"
+              Background="Transparent"
+              VerticalAlignment="Center"
+              Margin="10,0,10,0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <customcontrol:DatosMuestra x:Name="kpi1" Grid.Column="0"
+                                        Height="100" Margin="5,0"
+                                        Texto1="Instalaciones en riesgo"
+                                        Texto2="{Binding N_instalacionesEnRiesgo}"
+                                        Texto3="{Binding FechaFormateada}"
+                                        Color1="Red"
+                                        Color2="Orange"
+                                        />
+
+            <customcontrol:DatosMuestra x:Name="kpi2" Grid.Column="1"
+                                        Height="100" Margin="5,0"
+                                        Texto1="Instalaciones mas Eco"
+                                        Texto2="{Binding N_InstalacionesMasEco}"
+                                        Texto3="{Binding FechaFormateada}"
+                                        Color1="DarkGreen"
+                                        Color2="Lime"
+                                        />
+
+            <customcontrol:DatosMuestra x:Name="kpi3" Grid.Column="2"
+                                        Height="100" Margin="5,0"
+                                        Texto1="Media de CO2"
+                                        Texto2="{Binding MediaCo2}"
+                                        Texto3="{Binding FechaFormateada}"
+                                        Color1="Blue"
+                                        Color2="LightBlue"
+                                        />
+
+            <customcontrol:DatosMuestra x:Name="kpi4" Grid.Column="3"
+                                        Height="100" Margin="5,0"
+                                        Texto1="Operario mas activo"
+                                        Texto2="{Binding S_OperarioMasActivo}"
+                                        Texto3="{Binding FechaFormateada}"
+                                        Color1="Purple"
+                                        Color2="LightSkyBlue"
+                                        />
+        </Grid>
+
+
+        <StackPanel Grid.Row="1" VerticalAlignment="Stretch">
+            <!-- Fondo del StackPanel -->
+            <Border Grid.Row="1" Background="{StaticResource colorFondo1}"/>
+
+            <!-- Contenedor Grid para distribuir los gráficos -->
+            <Grid Background="Transparent" Grid.Row="1" VerticalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Primer gráfico: PieChart -->
+                <Border Background="Azure" Grid.Column="0" Margin="10"
+                        BorderBrush="DarkBlue" BorderThickness="2"
+                        VerticalAlignment="Stretch">
+                    <livecharts:PieChart Series="{Binding PieSeriesCollection}"
+                                         Margin="10"
+                                         Height="350"
+                                         Width="380"
+                                         LegendLocation="Bottom"
+                                         VerticalAlignment="Stretch">
+                    </livecharts:PieChart>
+                </Border>
+
+                <!-- Segundo gráfico: CartesianChart -->
+                <Border Background="Azure" Grid.Column="1" Margin="10"
+                        BorderBrush="DarkBlue" BorderThickness="2"
+                        VerticalAlignment="Stretch">
+                    <livecharts:CartesianChart Series="{Binding CartesianSeriesCollection}"
+                                               Background="Transparent"
+                                               Margin="10"
+                                               Height="350"
+                                               Width="380"
+                                               LegendLocation="Bottom"
+                                               VerticalAlignment="Stretch">
+                        <livecharts:CartesianChart.AxisX>
+                            <livecharts:Axis Title="Operaciones por Operario"
+                                             Labels="{Binding BarLabels}"
+                                             LabelsRotation="15" />
+                        </livecharts:CartesianChart.AxisX>
+                    </livecharts:CartesianChart>
+                </Border>
+            </Grid>
+        </StackPanel>
+
+
+
+        <!--BOTON NOTIFICAR-->
+        <StackPanel
+            Height="30"
+            Grid.Row="2"
+            Orientation="Horizontal"
+            HorizontalAlignment="Right">
+
+            <Button Style="{StaticResource actionButton}"
+                    x:Name="btNotificar"
+                    Height="30"
+                    Width="80"
+                    Command="{Binding LimpiarCommand}" Margin="5,0,10,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Notificar"
+                               Style="{StaticResource actionButtonText}"
+                               Margin="5"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+
+</UserControl>

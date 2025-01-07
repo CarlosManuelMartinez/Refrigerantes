@@ -23,11 +23,13 @@ namespace Refrigerantes.ModelDTO
         public string Horario_DTO { get; set; } = null!;
 
         public Cliente Cliente_DTO { get; set; } = null!;
+        public List<EquipoDTO> Equipos_DTO { get; set; } = new List<EquipoDTO>();
 
         public InstalacionDTO() { }
 
-        public InstalacionDTO(int instalacionId_DTO, int clienteId_DTO, string nombre_DTO, string direccion_DTO, string horario_DTO, Cliente cliente_DTO)
+        public InstalacionDTO(int instalacionId_DTO, int clienteId_DTO, string nombre_DTO, string direccion_DTO, string horario_DTO, Cliente cliente_DTO, List<EquipoDTO> equipos_DTO)
         {
+
             InstalacionId_DTO = instalacionId_DTO;
             ClienteId_DTO = clienteId_DTO;
             Nombre_DTO = nombre_DTO;
@@ -35,7 +37,9 @@ namespace Refrigerantes.ModelDTO
             Direccion_DTO = direccion_DTO;
             Horario_DTO = horario_DTO;
             Cliente_DTO = cliente_DTO;
+            Equipos_DTO = equipos_DTO;
         }
+
     }
 
 }

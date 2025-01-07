@@ -29,10 +29,7 @@
 
     <!--BORDE PARA LA IMAGEN -->
     <Border x:Name="BordeParaImagen" CornerRadius="25">
-        <!--<Border.Background>
-        --><!--<ImageBrush ImageSource="/Resources/fondoBikeStores.jpeg"
-        Stretch="Fill"/>--><!--
-        </Border.Background>-->
+
         <!--BORDE LINEAL -->
         <Border x:Name ="BordeLineal"
                 CornerRadius="25"
