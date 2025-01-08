@@ -36,17 +36,17 @@ INSERT INTO Categoria_profesional (categoria_profesional) VALUES
     ('INGENIERO');
 
 -- CLIENTES
-INSERT INTO Cliente (cif, nombre, direccion_facturacion) VALUES
-    ('A12345678', 'Grupo Kinepolis', 'Calle Gran Vía 50, Madrid'),
-    ('B23456789', 'Grupo Sanitas Clínicas', 'Avenida de la Salud 15, Barcelona'),
-    ('C34567890', 'Grupo Fitness Pro', 'Calle del Deporte 27, Valencia'),
-    ('D45678901', 'Grupo Inditex Textiles', 'Polígono Industrial Norte 12, La Coruña'),
-    ('E56789012', 'Clinimed Grupo Hospitalario', 'Paseo de la Esperanza 7, Bilbao'),
-    ('F67890123', 'CineWorld España', 'Calle de los Directores 56, Madrid'),
-    ('G78901234', 'Grupo GymTime', 'Avenida de la Fuerza 23, Zaragoza'),
-    ('H89012345', 'Fábricas Actiu Grupo Industrial', 'Polígono Sur 88, Castalla'),
-    ('I90123456', 'Grupo FisioSalud', 'Calle Río Ebro 34, Sevilla'),
-    ('J01234567', 'CineGlobal', 'Plaza de los Espectadores 10, Barcelona');
+INSERT INTO Cliente (cif, nombre, direccion_facturacion, email) VALUES
+    ('A12345678', 'Grupo Kinepolis', 'Calle Gran Vía 50, Madrid','carlos.climatizacion@gmail.com'),
+    ('B23456789', 'Grupo Sanitas Clínicas', 'Avenida de la Salud 15, Barcelona','carlos.climatizacion@gmail.com'),
+    ('C34567890', 'Grupo Fitness Pro', 'Calle del Deporte 27, Valencia','carlos.climatizacion@gmail.com'),
+    ('D45678901', 'Grupo Inditex Textiles', 'Polígono Industrial Norte 12, La Coruña','carlos.climatizacion@gmail.com'),
+    ('E56789012', 'Clinimed Grupo Hospitalario', 'Paseo de la Esperanza 7, Bilbao','carlos.climatizacion@gmail.com'),
+    ('F67890123', 'CineWorld España', 'Calle de los Directores 56, Madrid','carlos.climatizacion@gmail.com'),
+    ('G78901234', 'Grupo GymTime', 'Avenida de la Fuerza 23, Zaragoza','carlos.climatizacion@gmail.com'),
+    ('H89012345', 'Fábricas Actiu Grupo Industrial', 'Polígono Sur 88, Castalla','carlos.climatizacion@gmail.com'),
+    ('I90123456', 'Grupo FisioSalud', 'Calle Río Ebro 34, Sevilla','carlos.climatizacion@gmail.com'),
+    ('J01234567', 'CineGlobal', 'Plaza de los Espectadores 10, Barcelona','carlos.climatizacion@gmail.com');
 
 --OPERARIOS
 INSERT INTO Operario (dni, nombre, apellido1, apellido2, email, password, categoria_profesional_id) VALUES
@@ -94,7 +94,10 @@ INSERT INTO Instalacion (cliente_id, nombre, direccion, horario) VALUES
     (3, 'Fitness Pro Barcelona', 'Calle del Ejercicio 15, Barcelona', '06:00 - 22:00'),
     (3, 'Fitness Pro Málaga', 'Avenida del Deporte 55, Málaga', '06:00 - 22:00'),
     (4, 'Inditex Fábrica Este', 'Polígono Industrial Este 22, Zaragoza', '07:00 - 19:00'),
-    (4, 'Inditex Fábrica Sur', 'Polígono Sur 55, Alicante', '07:00 - 19:00');
+    (4, 'Inditex Fábrica Sur', 'Polígono Sur 55, Alicante', '07:00 - 19:00'),
+    (8, 'Actiu nave 1 Alicante', 'Avenida Grande 99, Alicante', '05:30 - 23:30'),
+    (8, 'Actiu nave 1 Zaragoza', 'Avenida Pequeña 99, Zaragoza', '05:30 - 23:30'),
+    (8, 'Actiu nave 1 Bilbao', 'Avenida Mediana 99, Bilbao', '05:30 - 23:30');
 
 -- EQUIPOS
 INSERT INTO Equipo (instalacion_id, refrigerante_id, tipo_equipo_id, marca, modelo, carga_refrigerante) VALUES

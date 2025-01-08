@@ -51,8 +51,8 @@
 
             <customcontrol:DatosMuestra x:Name="kpi3" Grid.Column="2"
                                         Height="100" Margin="5,0"
-                                        Texto1="Media de CO2"
-                                        Texto2="{Binding MediaCo2}"
+                                        Texto1="Media de CO2 en Toneladas"
+                                        Texto2="{Binding MediaCo2 , StringFormat='{}{0} toneladas de CO2' }"
                                         Texto3="{Binding FechaFormateada}"
                                         Color1="Blue"
                                         Color2="LightBlue"

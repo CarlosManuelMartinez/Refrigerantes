@@ -36,7 +36,8 @@ namespace Refrigerantes.Services
                         Equipos_DTO = instalacion.Equipos.Select(e => new EquipoDTO
                         { 
                             EquipoId = e.EquipoId,
-                            CargaRefrigerante = e.CargaRefrigerante
+                            CargaRefrigerante = e.CargaRefrigerante,
+                            Refrigerante = e.Refrigerante,
                         }).ToList()
 
                     }).ToList();

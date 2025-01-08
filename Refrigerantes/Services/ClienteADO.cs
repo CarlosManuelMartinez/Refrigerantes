@@ -24,11 +24,11 @@ namespace Refrigerantes.Services
                 var listaClientes = context.Clientes
                     .Select(cli => new ClienteDTO
                     {
-                        ClienteId = cli.ClienteId,
-                        Cif = cli.Cif,
-                        Nombre = cli.Nombre,
-                        DireccionFacturacion = cli.DireccionFacturacion,
-                        Instalacions = cli.Instalacions.ToList(),
+                        ClienteIdDTO = cli.ClienteId,
+                        CifDTO = cli.Cif,
+                        NombreDTO = cli.Nombre,
+                        DireccionFacturacionDTO = cli.DireccionFacturacion,
+                        InstalacionsDTO = cli.Instalacions.ToList(),
                     }).ToList();
 
                 return listaClientes;
@@ -44,11 +44,11 @@ namespace Refrigerantes.Services
 
                 return new ClienteDTO
                 {
-                    ClienteId = cliente.ClienteId,
-                    Cif = cliente.Cif,
-                    Nombre = cliente.Nombre,
-                    DireccionFacturacion = cliente.DireccionFacturacion,
-                    Instalacions = cliente.Instalacions.ToList(),
+                    ClienteIdDTO = cliente.ClienteId,
+                    CifDTO = cliente.Cif,
+                    NombreDTO = cliente.Nombre,
+                    DireccionFacturacionDTO = cliente.DireccionFacturacion,
+                    InstalacionsDTO = cliente.Instalacions.ToList(),
                 };
 
             }

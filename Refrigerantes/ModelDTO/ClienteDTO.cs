@@ -11,20 +11,22 @@ namespace Refrigerantes.ModelDTO
 {
     public class ClienteDTO
     {
-        public int ClienteId { get; set; }
-        public string Cif { get; set; } = null!;
-        public string Nombre { get; set; } = null!;
-        public string DireccionFacturacion { get; set; } = null!;
-        public  List<Instalacion> Instalacions { get; set; } = new List<Instalacion>();
+        public int ClienteIdDTO { get; set; }
+        public string CifDTO { get; set; } = null!;
+        public string NombreDTO { get; set; } = null!;
+        public string DireccionFacturacionDTO { get; set; } = null!;
+        public string EmailDTO { get; set; } = null!;
+        public  List<Instalacion> InstalacionsDTO { get; set; } = new List<Instalacion>();
 
         public ClienteDTO(){}
-        public ClienteDTO(int clienteId, string cif, string nombre, string direccionFacturacion, List<Instalacion> instalacions)
+        public ClienteDTO(int clienteId, string cif, string nombre, string direccionFacturacion,string email,List<Instalacion> instalacions)
         {
-            ClienteId = clienteId;
-            Cif = cif;
-            Nombre = nombre;
-            DireccionFacturacion = direccionFacturacion;
-            Instalacions = instalacions;
+            ClienteIdDTO = clienteId;
+            CifDTO = cif;
+            NombreDTO = nombre;
+            DireccionFacturacionDTO = direccionFacturacion;
+            EmailDTO = email;
+            InstalacionsDTO = instalacions;
         }
     }
 }

@@ -25,6 +25,11 @@ public partial class Cliente
     [StringLength(200)]
     public string DireccionFacturacion { get; set; } = null!;
 
+    [Column("email")]
+    [StringLength(200)]
+    public string Email { get; set; } = null!;
+
+
     [InverseProperty("Cliente")]
     public virtual ICollection<Instalacion> Instalacions { get; set; } = new List<Instalacion>();
     

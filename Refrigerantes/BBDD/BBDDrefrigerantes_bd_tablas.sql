@@ -2,6 +2,7 @@
 -- Carlos Manuel Martinez Pomares 
 -- DAM Semipresencial Proyecto final
 -- BBDD REFRIGERANTES
+--RECORDAR EJECUTAR COMO ADMIN
 
 CREATE DATABASE Refrigerantes;
 GO
@@ -38,7 +39,8 @@ CREATE TABLE Cliente (
     cliente_id INT IDENTITY(1,1) PRIMARY KEY,
     cif NVARCHAR(15) NOT NULL,
     nombre NVARCHAR(100) NOT NULL,
-    direccion_facturacion NVARCHAR(200) NOT NULL
+    direccion_facturacion NVARCHAR(200) NOT NULL,
+    email NVARCHAR(50) NOT NULL
 );
 
 -- TABLA OPERARIO
