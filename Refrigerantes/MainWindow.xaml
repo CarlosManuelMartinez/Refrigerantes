@@ -7,19 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TextBox Text="PRUEBA BBDD">
 
-        </TextBox>
-
-        <DataGrid ItemsSource="{Binding TablaOperarios}"
-                  IsReadOnly="True"
-                  CanUserDeleteRows="false"
-                  CanUserAddRows="False"
-                  CanUserResizeRows="False"
-                  CanUserResizeColumns="True"
-                  Height="200"
-                  Margin="10"
-                  />
     </Grid>
 
 </Window>

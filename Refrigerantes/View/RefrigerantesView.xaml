@@ -40,11 +40,17 @@
     </interactiv:Interaction.Triggers>
 
     <StackPanel Background="Transparent">
+        <TextBlock Text="REFRIGERANTES"
+                   Foreground="White"
+                   Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center" />
         <!--BUSCADOR-->
         <GroupBox Name="Buscador" Grid.Row="0"
                   Header="Buscador" Margin="10"
                   Background="{StaticResource colorFondo}"
                   Foreground="{StaticResource colorTextosBotones}">
+
 
             <TextBox Name="tbBuscador" HorizontalAlignment="Right"
                      Width="300"
@@ -81,11 +87,11 @@
                 </interactiv:Interaction.Triggers>
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Id" Binding="{Binding Path=RefrigeranteId}" Width="200"  IsReadOnly="True" Visibility="Hidden"/>
-                    <DataGridTextColumn Header="Nombre" Binding="{Binding Path=Nombre}" Width="200" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Co2Eq" Binding="{Binding Path=Co2Eq}" Width="200" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Clase" Binding="{Binding Path=Clase}"  Width="200" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Grupo" Binding="{Binding Path=Grupo}"  Width="200" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Id" Binding="{Binding Path=RefrigeranteId}" Width="150"  IsReadOnly="True" Visibility="Hidden"/>
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding Path=Nombre}" Width="150" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Co2Eq" Binding="{Binding Path=Co2Eq}" Width="150" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Clase" Binding="{Binding Path=Clase}"  Width="150" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Grupo" Binding="{Binding Path=Grupo}"  Width="*" IsReadOnly="True" />
 
                     <!--BOTON MODIFICAR-->
                     <DataGridTemplateColumn Width="100" CanUserResize="False">

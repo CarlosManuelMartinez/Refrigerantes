@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Refrigerantes.View"
         xmlns:viewModel="clr-namespace:Refrigerantes.ViewModel"
         mc:Ignorable="d"
-        Title="VentanaPrincipalView" Height="800" Width="1150"
+        Title="VentanaPrincipalView" Height="850" Width="1200"
         WindowStartupLocation = "CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -205,14 +205,7 @@
                                 Margin="10,0,10,0"/>-->
                             </Border>
 
-
-                            <!--<awesome:IconImage Icon="Home"
-                            VerticalAlignment="Center"
-                            Height="25"
-                            Width="25"
-                            Foreground="{StaticResource colorTextosBotones}"
-                            Margin=" 20,0,10,0"/>-->
-                            <TextBlock Text="{Binding Staff.FirstName}"
+                            <TextBlock Text="{Binding Operario.Nombre_DTO}"
                                        Foreground="{StaticResource colorTextosBotones}"
                                        FontSize="20"
                                        FontWeight="Medium"

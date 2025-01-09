@@ -27,7 +27,11 @@ namespace Refrigerantes.ViewModel
         public OperarioDTO Operario
         {
             get { return operario; }
-            set { operario = value; }
+            set 
+            {
+                operario = value; 
+                OnPropertyChanged(nameof(Operario));
+            }
         }
 
         public ObservableCollection<OperarioDTO> OperariosObservable
@@ -86,9 +90,9 @@ namespace Refrigerantes.ViewModel
         private void ExecuteLoginCommand(object obj)
         {
             MensajeError = string.Empty;
-            OperarioDTO? operarioSeleccionado = BuscarOperarioPorMail(Operario.Email_DTO);
+            OperarioDTO? operarioSeleccionado = OperarioPorId(Operario.OperarioId_DTO);
 
-            MensajeError = "Email de " + operarioSeleccionado.Nombre_DTO + operarioSeleccionado.Email_DTO;
+            //MensajeError = "Email de " + operarioSeleccionado.Nombre_DTO + operarioSeleccionado.Email_DTO;
 
             if (intentosLogin < 10)
             {
@@ -109,11 +113,11 @@ namespace Refrigerantes.ViewModel
             }
         }
 
-        public OperarioDTO? BuscarOperarioPorMail(string email)
+        public OperarioDTO? OperarioPorId(int id)
         {
             using (var operarioADO = new OperarioADO())
             {
-                return operarioADO.OperarioPorEmailADO(email);
+                return operarioADO.OperarioPorIdADO(id);
             }
         }
     }
