@@ -9,6 +9,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -22,6 +23,8 @@ namespace Refrigerantes.ViewModel
         private decimal co2Eq;
         private string clase;
         private string grupo;
+        private OperarioDTO operarioLogeado;
+        private bool operarioConPermiso;
 
         private DataRowView filaSeleccionada;
         private string palabraClave;
@@ -47,6 +50,22 @@ namespace Refrigerantes.ViewModel
                     tablaRefrigerantes = value;
                     OnPropertyChanged(nameof(TablaRefrigerantes));
                 }
+            }
+        }
+        public bool OperarioConPermisos
+        {
+            get { return operarioConPermiso; }
+            set
+            {
+                operarioConPermiso = value;
+            }
+        }
+        public OperarioDTO OperarioLogeado
+        {
+            get { return operarioLogeado; }
+            set
+            {
+                operarioLogeado = value;
             }
         }
 
@@ -143,12 +162,23 @@ namespace Refrigerantes.ViewModel
 
         private void PerformBorrarRefrigerante(object? parameter = null)
         {
-            var result = MessageBox.Show("¿Desea realmente borrar este registro?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if (result == MessageBoxResult.Yes)
+            if (operarioConPermiso)
             {
-                //int i_OperrioId = int.Parse(OperarioId);
-                BorrarRefrigerante(RefrigeranteId);
+                var result = MessageBox.Show("¿Desea realmente borrar este registro?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    //int i_OperrioId = int.Parse(OperarioId);
+                    BorrarRefrigerante(RefrigeranteId);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No tiene permisos",
+                    "Gestor de Refrigerantes",
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Question);
             }
         }
 
@@ -162,47 +192,60 @@ namespace Refrigerantes.ViewModel
 
         private void PerformInsertarRefrigerante(object? parameter = null)
         {
-            RefrigeranteDTO refrigeranteDTO = new(Nombre, Co2Eq, Clase, Grupo);
-            InsertarRefrigerante(refrigeranteDTO);
+            if (operarioConPermiso)
+            {
+                RefrigeranteDTO refrigeranteDTO = new(Nombre, Co2Eq, Clase, Grupo);
+                InsertarRefrigerante(refrigeranteDTO);
 
-            MessageBox.Show(String.Format("Registro {0} insertado", Nombre), "Confirmar", MessageBoxButton.OK, MessageBoxImage.Information);
-
+                MessageBox.Show(String.Format("Registro {0} insertado", Nombre), "Confirmar", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("No tiene permisos",
+                    "Gestor de Refrigerantes",
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Question);
+            }
         }
         private void PerformModificarRefrigerante(object obj)
         {
-            var result = MessageBox.Show("¿Desea realmente modificar este registro?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            if (operarioConPermiso)
             {
-                RefrigeranteDTO refrigerante = new((int)FilaSeleccionada[nameof(RefrigeranteId)], Nombre, Co2Eq, Clase, Grupo);
-                if (refrigerante == null)
+                var result = MessageBox.Show("¿Desea realmente modificar este registro?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
                 {
-                    MessageBox.Show("Debe rellenar todos los campos");
-                }
-                else
-                {
-                    ActualizarRefrigerante(refrigerante);
-                }
+                    RefrigeranteDTO refrigerante = new((int)FilaSeleccionada[nameof(RefrigeranteId)], Nombre, Co2Eq, Clase, Grupo);
+                    if (refrigerante == null)
+                    {
+                        MessageBox.Show("Debe rellenar todos los campos");
+                    }
+                    else
+                    {
+                        ActualizarRefrigerante(refrigerante);
+                    }
 
-                MessageBox.Show(String.Format("Registro " + Nombre + " modificado", "Confirmar", MessageBoxButton.OK, MessageBoxImage.Information));
-                PerformCargarRefrigerante();
-                PerformLimpiarRefrigerante();
+                    MessageBox.Show(String.Format("Registro " + Nombre + " modificado", "Confirmar", MessageBoxButton.OK, MessageBoxImage.Information));
+                    PerformCargarRefrigerante();
+                    PerformLimpiarRefrigerante();
+                }
+            }
+            else
+            {
+                MessageBox.Show("No tiene permisos",
+                    "Gestor de Refrigerantes",
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Question);
             }
         }
         private void PerformSelectedItemChangedCommand(object obj)
         {
             if (FilaSeleccionada != null)
             {
-                foreach (DataColumn column in TablaRefrigerantes.Columns)
-                {
-                    Debug.WriteLine($"Columna: {column.ColumnName}");
-                }
-
                 RefrigeranteId = (int)FilaSeleccionada[nameof(RefrigeranteId)];
                 Nombre = (string)FilaSeleccionada[nameof(Nombre)];
                 Co2Eq = (decimal)FilaSeleccionada[nameof(Co2Eq)];
                 Clase = (string)FilaSeleccionada[nameof(Clase)];
                 Grupo = (string)FilaSeleccionada[nameof(Grupo)];
-
             }
         }
         private void PerformCargarRefrigerante(object? parameter = null)
@@ -271,6 +314,33 @@ namespace Refrigerantes.ViewModel
             {
                 var refrigerantesList = refrigeranteADO.ListarRefrigerantes();
                 Refrigerantes = new ObservableCollection<RefrigeranteDTO>(refrigerantesList);
+            }
+        }
+        private void CargarOperarioLogeado()
+        {
+            using (OperarioADO operarioADO = new())
+            {
+                if (Thread.CurrentPrincipal.Identity.Name == null)
+                {
+                    MessageBox.Show("Operario no encontrado");
+                }
+                else
+                {
+                    int id = Convert.ToInt32(Thread.CurrentPrincipal.Identity.Name);
+
+                    OperarioLogeado = operarioADO.OperarioPorIdADO(id);
+
+                    if (OperarioLogeado.CategoriaProfesionalId_DTO != 5 || OperarioLogeado.CategoriaProfesionalId_DTO != 4)
+                    {
+                        OperarioConPermisos = false;
+                    }
+
+                    if (OperarioLogeado == null)
+                    {
+                        MessageBox.Show("Operario no encontrado");
+                        Application.Current.Shutdown();
+                    }
+                }
             }
         }
     }

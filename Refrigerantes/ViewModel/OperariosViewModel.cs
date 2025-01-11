@@ -9,6 +9,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -19,6 +20,8 @@ namespace Refrigerantes.ViewModel
     {
         private const string PASSWORD_POR_DEFECTO = "03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4";
         private int operarioId;
+        private int categoriaId;
+        private bool operarioConPermiso;
         private string dni;
         private string nombre;
         private string apellido1;
@@ -26,13 +29,13 @@ namespace Refrigerantes.ViewModel
         private string email;
         private string password;
         private string nombreCategoria;
-        private int categoriaId;
         private string palabraClave;
+        private OperarioDTO operarioLogeado;
+        private CategoriaProfesionalDTO categoriaSeleccionada;
 
         private DataRowView filaSeleccionada;
         private ObservableCollection<OperarioDTO> operarios;
         private ObservableCollection<CategoriaProfesionalDTO> categorias;
-        private CategoriaProfesionalDTO categoriaSeleccionada;
 
         private DataTable tablaOperarios;
 
@@ -44,6 +47,67 @@ namespace Refrigerantes.ViewModel
         public ICommand SelectedItemChangedCommand { get; }
         public ICommand FiltrarCommand { get; }
 
+        public int OperarioId
+        {
+            get { return operarioId; }
+            set
+            {
+                operarioId = value;
+                OnPropertyChanged("OperarioId");
+            }
+        }
+
+        public string Nombre
+        {
+            get { return nombre; }
+            set
+            {
+                nombre = value; OnPropertyChanged("Nombre");
+            }
+        }
+
+        public string Apellido1
+        {
+            get { return apellido1; }
+            set
+            {
+                apellido1 = value; OnPropertyChanged("Apellido1");
+            }
+        }
+
+        public string Apellido2
+        {
+            get { return apellido2; }
+            set
+            {
+                apellido2 = value; OnPropertyChanged("Apellido2");
+            }
+        }
+        public string Email
+        {
+            get { return email; }
+            set
+            {
+                email = value; OnPropertyChanged("Email");
+            }
+        }
+
+        public bool OperarioConPermisos
+        {
+            get { return operarioConPermiso;}
+            set
+            {
+                operarioConPermiso = value;
+            }
+        }
+        public OperarioDTO OperarioLogeado
+        {
+            get { return operarioLogeado; }
+            set
+            {
+                operarioLogeado = value;
+            }
+        }
         public DataTable TablaOperarios
         {
             get { return tablaOperarios; }
@@ -106,64 +170,6 @@ namespace Refrigerantes.ViewModel
                 OnPropertyChanged("Categorias");
             }
         }
-
-        public OperariosViewModel()
-        {
-            Password = PASSWORD_POR_DEFECTO;
-            GuardarCommand = new RelayCommand(PerformInsertarOperario, CanExecuteInsertarOperario);
-            BorrarCommand = new RelayCommand(PerformBorrarOperario);
-            ModificarCommand = new RelayCommand(PerformModificarOperario);
-            LimpiarCommand = new RelayCommand(PerformLimpiarOperario);
-            CargarCommand = new RelayCommand(PerformCargarOperarios);
-            FiltrarCommand = new RelayCommand(PerformFilterOperarios);
-            SelectedItemChangedCommand = new RelayCommand(PerformSelectedItemChangedCommand);
-
-        }
-
-        public int OperarioId
-        {
-            get { return operarioId; }
-            set
-            {
-                operarioId = value;
-                OnPropertyChanged("OperarioId");
-            }
-        }
-
-        public string Nombre
-        {
-            get { return nombre; }
-            set
-            {
-                nombre = value; OnPropertyChanged("Nombre");
-            }
-        }
-
-        public string Apellido1
-        {
-            get { return apellido1; }
-            set
-            {
-                apellido1 = value; OnPropertyChanged("Apellido1");
-            }
-        }
-
-        public string Apellido2
-        {
-            get { return apellido2; }
-            set
-            {
-                apellido2 = value; OnPropertyChanged("Apellido2");
-            }
-        }
-        public string Email
-        {
-            get { return email; }
-            set
-            {
-                email = value; OnPropertyChanged("Email");
-            }
-        }
         public string Password
         {
             get { return password; }
@@ -208,18 +214,31 @@ namespace Refrigerantes.ViewModel
                 palabraClave = value; OnPropertyChanged("PalabraClave");
             }
         }
+
+        public OperariosViewModel()
+        {
+            CargarOperarioLogeado();
+            Password = PASSWORD_POR_DEFECTO;
+            GuardarCommand = new RelayCommand(PerformInsertarOperario, CanExecuteInsertarOperario);
+            ModificarCommand = new RelayCommand(PerformModificarOperario);
+            LimpiarCommand = new RelayCommand(PerformLimpiarOperario);
+            BorrarCommand = new RelayCommand(PerformBorrarOperario);
+            CargarCommand = new RelayCommand(PerformCargarOperarios);
+            FiltrarCommand = new RelayCommand(PerformFilterOperarios);
+            SelectedItemChangedCommand = new RelayCommand(PerformSelectedItemChangedCommand);
+
+        }
         
         private bool CanExecuteInsertarOperario(object? parameter)
         {
-            Debug.WriteLine("CanExecuteSaveOperarios");
             return (!string.IsNullOrEmpty(Nombre)
                 && !string.IsNullOrEmpty(Dni)
                 && !string.IsNullOrEmpty(Apellido1)
                 && !string.IsNullOrEmpty(Apellido2)
                 && !string.IsNullOrEmpty(Email)
-                && !string.IsNullOrEmpty(Password)
-                );
+                && !string.IsNullOrEmpty(Password) );
         }
+       
         private void PerformFilterOperarios(object? parameter)
         {
             TablaOperarios.DefaultView.RowFilter = String.Format("Nombre like '%{0}%' ", Busqueda);
@@ -230,14 +249,6 @@ namespace Refrigerantes.ViewModel
             if (FilaSeleccionada != null)
 
             {
-                foreach (DataColumn column in TablaOperarios.Columns)
-                {
-                    Debug.WriteLine($"Columna: {column.ColumnName}");
-                }
-
-
-                Debug.WriteLine("PerformSelectedItemChangedCommand:" + "Selected:" + FilaSeleccionada["Nombre"].ToString());
-
                 OperarioId = (int)FilaSeleccionada["OperarioId"];
                 Dni = FilaSeleccionada["Dni"].ToString();
                 Nombre = FilaSeleccionada["Nombre"].ToString();
@@ -246,7 +257,6 @@ namespace Refrigerantes.ViewModel
                 Email = FilaSeleccionada["Email"].ToString();
                 Password = PASSWORD_POR_DEFECTO;
                 CategoriaSeleccionada = Categorias.FirstOrDefault(x => x.CategoriaProfesionalId == (int)FilaSeleccionada["CategoriaId"]);
-
             }
         }
 
@@ -270,8 +280,6 @@ namespace Refrigerantes.ViewModel
             }
 
             CargarOperarios();
-
-            Debug.WriteLine("Cargando operarios");
 
             DataTable dtable = new DataTable();
 
@@ -309,42 +317,74 @@ namespace Refrigerantes.ViewModel
 
         private void PerformModificarOperario(object? parameter = null)
         {
-            var result = MessageBox.Show("¿Desea realmente modificar este registro?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-
-            if (result == MessageBoxResult.Yes)
+            if(operarioConPermiso)
             {
+                var result = MessageBox.Show("¿Desea realmente modificar este registro?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                OperarioDTO operario = new((int)FilaSeleccionada["OperarioId"], Dni, Nombre, Apellido1, Apellido2, Email, PASSWORD_POR_DEFECTO, CategoriaSeleccionada.CategoriaProfesionalId);
 
-                if (operario == null)
+                if (result == MessageBoxResult.Yes)
                 {
-                    MessageBox.Show("Debe rellenar todos los campos");
-                }
-                else
-                {
-                    ActualizarOperario(operario);
-                }
 
-                MessageBox.Show(String.Format("Registro " + Nombre + " modificado", "Confirmar", MessageBoxButton.OK, MessageBoxImage.Information));
-                PerformCargarOperarios();
-                PerformLimpiarOperario();
+                    OperarioDTO operario = new((int)FilaSeleccionada["OperarioId"], Dni, Nombre, Apellido1, Apellido2, Email, PASSWORD_POR_DEFECTO, CategoriaSeleccionada.CategoriaProfesionalId);
+
+                    if (operario == null)
+                    {
+                        MessageBox.Show("Debe rellenar todos los campos");
+                    }
+                    else
+                    {
+                        ActualizarOperario(operario);
+                    }
+
+                    MessageBox.Show(String.Format("Registro " + Nombre + " modificado", "Confirmar", MessageBoxButton.OK, MessageBoxImage.Information));
+                    PerformCargarOperarios();
+                    PerformLimpiarOperario();
+                }
             }
+            else
+            {
+                MessageBox.Show("No tiene permisos",
+                    "Gestor de Refrigerantes",
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Question);
+            }
+            
         }
         private void PerformInsertarOperario(object? parameter = null)
         {
-            OperarioDTO operario = new(Dni, Nombre, Apellido1, Apellido2, Email, PASSWORD_POR_DEFECTO,CategoriaSeleccionada.CategoriaProfesionalId);
-            InsertarOperario(operario);
-            MessageBox.Show(String.Format("Registro {0} insertado", Nombre), "Confirmar", MessageBoxButton.OK, MessageBoxImage.Information);
-
+           
+            if (operarioConPermiso)
+            {
+                OperarioDTO operario = new(Dni, Nombre, Apellido1, Apellido2, Email, PASSWORD_POR_DEFECTO, CategoriaSeleccionada.CategoriaProfesionalId);
+                InsertarOperario(operario);
+                MessageBox.Show(String.Format("Registro {0} insertado", Nombre), "Confirmar", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("No tiene permisos",
+                    "Gestor de Refrigerantes",
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Question);
+            }
         }
         private void PerformBorrarOperario(object? parameter = null)
         {
-            var result = MessageBox.Show("¿Desea realmente borrar este registro?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+
+            if (operarioConPermiso)
             {
-                //int i_OperrioId = int.Parse(OperarioId);
-                BorrarOperario(OperarioId);
+                var result = MessageBox.Show("¿Desea realmente borrar este registro?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    //int i_OperrioId = int.Parse(OperarioId);
+                    BorrarOperario(OperarioId);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No tiene permisos",
+                    "Gestor de Refrigerantes",
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Question);
             }
         }
         //LLAMADAS A ADO 
@@ -390,5 +430,32 @@ namespace Refrigerantes.ViewModel
             }
         }
 
+        private void CargarOperarioLogeado()
+        {
+            using (OperarioADO operarioADO = new())
+            {
+                if (Thread.CurrentPrincipal.Identity.Name == null)
+                {
+                    MessageBox.Show("Operario no encontrado");
+                }
+                else
+                {
+                    int id = Convert.ToInt32(Thread.CurrentPrincipal.Identity.Name);
+
+                    OperarioLogeado = operarioADO.OperarioPorIdADO(id);
+
+                    if (OperarioLogeado.CategoriaProfesionalId_DTO !=5 || OperarioLogeado.CategoriaProfesionalId_DTO !=4)
+                    {
+                        OperarioConPermisos = false;
+                    }
+
+                    if (OperarioLogeado == null)
+                    {
+                        MessageBox.Show("Operario no encontrado");
+                        Application.Current.Shutdown();
+                    }
+                }
+            }
+        }
     }
 }

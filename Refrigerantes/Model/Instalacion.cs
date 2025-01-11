@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace Refrigerantes.Model;
 
@@ -34,5 +32,5 @@ public partial class Instalacion
 
     [InverseProperty("Instalacion")]
     public virtual ICollection<Equipo> Equipos { get; set; } = new List<Equipo>();
-    
+
 }

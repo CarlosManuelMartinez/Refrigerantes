@@ -18,6 +18,7 @@ namespace Refrigerantes.ViewModel
         private OperarioDTO? _operario;
         private BaseViewModel currentChildView;
 
+        
         public OperarioDTO? Operario
         {
             get { return _operario; }
@@ -45,15 +46,15 @@ namespace Refrigerantes.ViewModel
         public ICommand MostrarOperacionesViewCommand { get; }
         public ICommand MostrarOperariosViewCommand { get; }
         public ICommand MostrarRefrigerantesViewCommand { get; }
-        public ICommand MostrarInstalacionesViewCommand { get; }
+        public ICommand MostrarImpuestosViewCommand { get; }
 
         public VentanaPrincipalViewModel()
         {
             MostrarHomeViewCommand = new RelayCommand(ExecuteMostrarHomeViewCommand);
             MostrarOperacionesViewCommand = new RelayCommand(ExecuteMostrarOperacionesViewCommand);
             MostrarOperariosViewCommand = new RelayCommand(ExecuteMostrarOperariosViewCommand);
-            MostrarRefrigerantesViewCommand = new RelayCommand(ExecuteMostrarInstalacionesViewCommand);
-            MostrarInstalacionesViewCommand = new RelayCommand(ExecuteMostrarInstalacionesViewCommand);
+            MostrarRefrigerantesViewCommand = new RelayCommand(ExecuteMostrarRefrigerantes);
+            MostrarImpuestosViewCommand = new RelayCommand(ExecuteMostrarImpuestosViewCommand);
 
             ExecuteMostrarHomeViewCommand(null);
             CargarOperario();
@@ -77,12 +78,12 @@ namespace Refrigerantes.ViewModel
             CurrentChildView = operacionesViewModel;
         }
 
-        public void ExecuteMostrarGasesViewCommand(object obj)
+        public void ExecuteMostrarImpuestosViewCommand(object obj)
         {
-            GasesViewModel gasesViewModel = new();
-            CurrentChildView = gasesViewModel;
+            ImpuestosViewModel impuestosViewModel = new();
+            CurrentChildView = impuestosViewModel;
         }
-        public void ExecuteMostrarInstalacionesViewCommand(object obj)
+        public void ExecuteMostrarRefrigerantes(object obj)
         {
             RefrigerantesViewModel refrigerantesViewModel = new();
             CurrentChildView = refrigerantesViewModel;

@@ -25,6 +25,8 @@ namespace Refrigerantes.Services
             {
                 
                 var listaInstalaciones = context.Instalacions
+                    .Include(i => i.Equipos)
+                    
                     .Select(instalacion => new InstalacionDTO
                     {
                         InstalacionId_DTO = instalacion.InstalacionId,
@@ -33,9 +35,11 @@ namespace Refrigerantes.Services
                         Direccion_DTO = instalacion.Direccion,
                         Horario_DTO = instalacion.Horario,
                         Cliente_DTO = instalacion.Cliente,
-                        Equipos_DTO = instalacion.Equipos.Select(e => new EquipoDTO
+                        Equipos_DTO = instalacion.Equipos.Select
+                        (e => new EquipoDTO
                         { 
                             EquipoId = e.EquipoId,
+                            InstalacionId = e.InstalacionId,
                             CargaRefrigerante = e.CargaRefrigerante,
                             Refrigerante = e.Refrigerante,
                         }).ToList()
@@ -81,7 +85,7 @@ namespace Refrigerantes.Services
                                 ClienteDTO = ins.Cliente,
                             };
 
-                return  query.ToList();
+            return  query.ToList();
             }
         }
 

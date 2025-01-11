@@ -1,17 +1,14 @@
-﻿using Azure;
-using LiveCharts;
+﻿using LiveCharts;
 using LiveCharts.Wpf;
-using Refrigerantes.Model;
 using Refrigerantes.ModelDTO;
 using Refrigerantes.Services;
+using Refrigerantes.Utils;
 using Refrigerantes.ViewModel.Base;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -25,10 +22,10 @@ namespace Refrigerantes.ViewModel
         private string s_operarioMasActivo;
         private string fechaFormateada;
         private DateTime fechaActual;
+        private ConsumirApi consumirApi = new ConsumirApi();
 
 
         private SeriesCollection pieSeriesCollection;
-        private SeriesCollection lineSeriesCollection;
         private SeriesCollection cartesianSeriesCollection;
         private ObservableCollection<string> barLabels;
         private List<OperacionDeCargaDTO> operaciones;
@@ -36,6 +33,8 @@ namespace Refrigerantes.ViewModel
         private List<InstalacionDTO> l_instalacionesEnRiesgo;
         private List<InstalacionDTO> l_instalaciones;
         private List<ClienteDTO> clientes;
+
+        public ICommand NotificarComand { get; }
 
         private int n_instalacionesEnRiesgo;
         IEnumerable<object> instalacionesEnRiesgo;
@@ -51,7 +50,6 @@ namespace Refrigerantes.ViewModel
                 clientes = value;
             }
         }
-
         public List<OperarioDTO> Operarios
         {
             get { return operarios; }
@@ -60,7 +58,6 @@ namespace Refrigerantes.ViewModel
                 operarios = value;
             }
         }
-
         public List<InstalacionDTO> Instalaciones
         {
             get { return l_instalaciones; }
@@ -77,7 +74,6 @@ namespace Refrigerantes.ViewModel
                 operaciones = value;
             }
         }
-
         public decimal MediaCo2
         {
             get { return mediaCo2; }
@@ -96,9 +92,6 @@ namespace Refrigerantes.ViewModel
                 OnPropertyChanged(nameof(InstalacionesEnRiesgo));
             }
         }
-
-       
-
         public int N_instalacionesEnRiesgo
         {
             get { return n_instalacionesEnRiesgo; }
@@ -108,7 +101,6 @@ namespace Refrigerantes.ViewModel
                 OnPropertyChanged(nameof(N_instalacionesEnRiesgo));
             }
         }
-
         public IEnumerable<object> InstalacionesMasEco
         {
             get { return instalacionesMasEco; }
@@ -118,7 +110,6 @@ namespace Refrigerantes.ViewModel
                 OnPropertyChanged(nameof(InstalacionesMasEco));
             }
         }
-
         public int N_InstalacionesMasEco
         {
             get { return n_instalacionesMasEco; }
@@ -139,7 +130,6 @@ namespace Refrigerantes.ViewModel
                 fechaActual = value; OnPropertyChanged(nameof(FechaActual));
             }
         }
-
         public string FechaFormateada
         {
             get
@@ -151,7 +141,6 @@ namespace Refrigerantes.ViewModel
                 fechaFormateada = value; OnPropertyChanged(nameof(FechaFormateada));
             }
         }
-
         public OperarioDTO OperarioMasActivo
         {
             get { return operarioMasActivo; }
@@ -161,7 +150,6 @@ namespace Refrigerantes.ViewModel
                 OnPropertyChanged(nameof(OperarioMasActivo));
             }
         }
-
         public string S_OperarioMasActivo
         {
             get { return s_operarioMasActivo; }
@@ -171,26 +159,58 @@ namespace Refrigerantes.ViewModel
                 OnPropertyChanged(nameof(S_OperarioMasActivo));
             }
         }
-
         public HomeViewModel()
         {
-            fechaActual = DateTime.Now;
-            fechaFormateada = DateTime.Now.ToString("dd-MM-yyyy");
+            RealizarProcesoAsincrono();
+            NotificarComand = new RelayCommand(PerformNotificar);
+
+            CargarInstalaciones();
             CargarClientes();
+            CargarOperaciones();
+            CargarOperarios();
+
             CargarOperarioMasActivo();
             CargarInstalacionesMasEco(TARGET_RIESGO);
             InstalacionesConMasDeN_Oeraciones(TARGET_RIESGO);
             MediaCo2 = CargarMediaCO2();
 
+            fechaActual = DateTime.Now;
+            fechaFormateada = DateTime.Now.ToString("dd-MM-yyyy");
+            
             S_OperarioMasActivo = OperarioMasActivo.Nombre_DTO;
             N_instalacionesEnRiesgo = InstalacionesEnRiesgo.Count();
             N_InstalacionesMasEco = InstalacionesMasEco.Count();
-
-            EnvioEmailsCommand = new RelayCommand(PerformEnvioEmails, CanExecuteEnvioEmails);
-            CargarOperaciones();
-            CargarOperarios();
+            
             GenerarPieSeries();
             GenerarBarChartSeries(operaciones, operarios);
+        }
+
+        private async void PerformNotificar(object? parameter = null)
+        {
+
+            List<InstalacionDTO> instalacionesConMasDeDosOperaciones = new List<InstalacionDTO>();
+
+            foreach (InstalacionDTO ins in l_instalaciones)
+            {
+                int contadorOperaciones = 0;
+
+                foreach (EquipoDTO equipo in ins.Equipos_DTO)  
+                {
+                    var operacionesDeEquipo = operaciones.Where(op => op.EquipoId_DTO == equipo.EquipoId);
+
+                    contadorOperaciones += operacionesDeEquipo.Count();
+                }
+
+                if (contadorOperaciones > TARGET_RIESGO)
+                {
+                    instalacionesConMasDeDosOperaciones.Add(ins);
+                }
+            }
+
+
+            Notificaciones notificaciones = new Notificaciones(instalacionesConMasDeDosOperaciones, operaciones);
+            notificaciones.EnviarNotificaciones();
+            
         }
 
         public void CargarClientes()
@@ -198,7 +218,6 @@ namespace Refrigerantes.ViewModel
             using (var context = new ClienteADO())
             {
                 var clientes = context.ListarClientes();
-                Debug.WriteLine($" EMAIL: {clientes[0].EmailDTO} NOMBRE: {clientes[0].NombreDTO}");
             }
         }
 
@@ -207,18 +226,6 @@ namespace Refrigerantes.ViewModel
             using (var context = new InstalacionADO())
             {
                 Instalaciones = context.ListarInstalaciones();
-                Debug.WriteLine($" Instalaciones listadas: {l_instalaciones.Count}");
-                foreach(var i in l_instalaciones)
-                {
-                    Debug.WriteLine(i.Nombre_DTO + "\n");
-                    Debug.WriteLine(i + "\n");
-                    if(i.Equipos_DTO.Count > 0)
-                    {
-                        Debug.WriteLine(i.Equipos_DTO[0].CargaRefrigerante + "\n");
-                    }
-                    
-                }
-                
             }
         }
 
@@ -228,11 +235,7 @@ namespace Refrigerantes.ViewModel
             set { pieSeriesCollection = value; OnPropertyChanged(nameof(PieSeriesCollection)); }
         }
 
-        public SeriesCollection LineSeriesCollection
-        {
-            get { return lineSeriesCollection; }
-            set { lineSeriesCollection = value; OnPropertyChanged(nameof(LineSeriesCollection)); }
-        }
+       
         public SeriesCollection CartesianSeriesCollection
         {
             get { return cartesianSeriesCollection; }
@@ -247,6 +250,7 @@ namespace Refrigerantes.ViewModel
 
         private void InstalacionesConMasDeN_Oeraciones(int n_Operaciones)
         {
+
             using (var context = new InstalacionADO())
             {
                 InstalacionesEnRiesgo = context.InstalacionesMasDeNOperacionesADO(n_Operaciones);
@@ -281,14 +285,6 @@ namespace Refrigerantes.ViewModel
             {
                 InstalacionesMasEco = context.InstalacionesMasEcoADO(n_Operaciones);
             }
-        }
-        private bool CanExecuteEnvioEmails(object? parameter = null)
-        {
-            return (0 == 0);
-        }
-        private void PerformEnvioEmails(object? parameter = null)
-        {
-            CargarClientes();
         }
 
         private decimal CargarMediaCO2()
@@ -328,7 +324,7 @@ namespace Refrigerantes.ViewModel
                     operarioId_Operaciones[operacion.OperarioId_DTO] = 1;
                 }
             }
-            
+
             SeriesCollection series = new SeriesCollection();
 
             foreach (var operario in operarios)
@@ -341,21 +337,20 @@ namespace Refrigerantes.ViewModel
                     series.Add(new ColumnSeries
                     {
                         Title = operario.Nombre_DTO,
-                        Values = new ChartValues<double> { numeroOperaciones }
+                        Values = new ChartValues<double> { (double)numeroOperaciones }
                     });
                 }
             }
 
             // "N" para que salga el eje en enteros
-            XFormatter = value => value.ToString("N");
+            //XFormatter = value => value.ToString("N");
             CartesianSeriesCollection = series;
         }
 
-        //TODO
         private void GenerarPieSeries()
         {
             Dictionary<string, decimal> clienteTotalCO2eq = new Dictionary<string, decimal>();
-            //Nombre cliente y totalCo2Eq
+            
             CargarInstalaciones();
 
             foreach (InstalacionDTO i in l_instalaciones)
@@ -365,17 +360,18 @@ namespace Refrigerantes.ViewModel
                     clienteTotalCO2eq[i.Cliente_DTO.Nombre] = 0; 
                 }
 
-                // Sumamos el CO2eq de cada equipo
+                // Sumo el CO2eq de cada equipo
                 foreach (EquipoDTO e in i.Equipos_DTO)
                 {
-                    // Verificamos si el equipo tiene un refrigerante y sumamos su valor de CO2eq
-                    if (e.Refrigerante != null && e.CargaRefrigerante !=0 && e.Refrigerante.Co2eq !=0) // Asegurémonos de que el equipo tiene un refrigerante asignado
+                    // Verifico si el equipo tiene un refrigerante y sumo su valor de CO2eq
+                    if (e.Refrigerante != null && e.CargaRefrigerante !=0 && e.Refrigerante.Co2eq !=0) 
                     {
                         decimal co2eqPorEquipo = e.CargaRefrigerante * e.Refrigerante.Co2eq;
                         clienteTotalCO2eq[i.Cliente_DTO.Nombre] += co2eqPorEquipo;
                     }
                 }
             }
+
 
             SeriesCollection series = new SeriesCollection();
 
@@ -384,11 +380,18 @@ namespace Refrigerantes.ViewModel
                 series.Add(new PieSeries
                 {
                     Title = kpv.Key,
-                    Values = new ChartValues<double> { (double)kpv.Value }
+                    Values = new ChartValues<double> { (double)kpv.Value },
                 });
             }
-
+           //chartPoint => $"{chartPoint.Y:N2} CO2eq"
             PieSeriesCollection = series;
+        }
+
+        public async Task RealizarProcesoAsincrono()
+        {
+            await consumirApi.CargarImpuestosApi();
+
+            List<PcaImpuestos> pcaImpuestos = consumirApi.PcaImpuestos;
         }
     }
 }

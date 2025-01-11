@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -19,6 +20,8 @@ namespace Refrigerantes.ViewModel
     {
         private int operacionId;
         private int operarioId;
+        private bool operarioConPermiso;
+        private OperarioDTO operarioLogeado;
         private int equipoId;
         private DateTime fechaOperacion;
         private string descripcion;
@@ -46,6 +49,22 @@ namespace Refrigerantes.ViewModel
         public ICommand SelectedItemChangedCommand { get; }
         public ICommand FiltrarCommand { get; }
 
+        public OperarioDTO OperarioLogeado
+        {
+            get { return operarioLogeado; }
+            set
+            {
+                operarioLogeado = value;
+            }
+        }
+        public bool OperarioConPermisos
+        {
+            get { return operarioConPermiso; }
+            set
+            {
+                operarioConPermiso = value;
+            }
+        }
         public KeyValuePair<bool, string> TipoSeleccionado
         {
             get {  return tipoSeleccionado; }
@@ -239,6 +258,7 @@ namespace Refrigerantes.ViewModel
 
         public OperacionDeCargaViewModel()
         {
+            CargarOperarioLogeado();
             TiposDeCarga = new Dictionary<bool, string>
             {
                 { true, "Recuperacion"},
@@ -310,31 +330,54 @@ namespace Refrigerantes.ViewModel
 
         private void PerformModificarOperacion(object? parameter = null)
         {
-            var result = MessageBox.Show("¿Desea realmente modificar este registro?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            OperacionDeCargaDTO operacion = new(OperacionId, OperarioId, EquipoId, FechaOperacion, Descripcion, RefrigeranteManipulado, IsRecuperacion);
 
-            if (result == MessageBoxResult.Yes)
+            if (operarioConPermiso)
             {
-                if(operacion == null)
+                var result = MessageBox.Show("¿Desea realmente modificar este registro?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                OperacionDeCargaDTO operacion = new(OperacionId, OperarioId, EquipoId, FechaOperacion, Descripcion, RefrigeranteManipulado, IsRecuperacion);
+
+                if (result == MessageBoxResult.Yes)
                 {
-                    MessageBox.Show("Debe rellenar todos los campos");
+                    if (operacion == null)
+                    {
+                        MessageBox.Show("Debe rellenar todos los campos");
+                    }
+                    else
+                    {
+                        ActualizarOperaciones(operacion);
+                    }
+                    MessageBox.Show(String.Format("Registro " + OperarioId + " modificado", "Confirmar", MessageBoxButton.OK, MessageBoxImage.Information));
+                    PerformCargarOperaciones();
+                    PerformLimpiarOperacion();
                 }
-                else
-                {
-                    ActualizarOperaciones(operacion);
-                }
-                MessageBox.Show(String.Format("Registro " + OperarioId + " modificado", "Confirmar", MessageBoxButton.OK, MessageBoxImage.Information));
-                PerformCargarOperaciones();
-                PerformLimpiarOperacion();
+            }
+            else
+            {
+                MessageBox.Show("No tiene permisos",
+                    "Gestor de Refrigerantes",
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Question);
             }
         }
 
         private void PerformInsertarOperacion(object? parameter = null)
         {
-            OperacionDeCargaDTO operacion = new (OperarioId,EquipoId,FechaOperacion,Descripcion,RefrigeranteManipulado,IsRecuperacion);
-            InsertarOperaciones(operacion);
 
-            MessageBox.Show(String.Format("Registro {0} insertado", OperarioId), "Confirmar", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (operarioConPermiso)
+            {
+                OperacionDeCargaDTO operacion = new(OperarioId, EquipoId, FechaOperacion, Descripcion, RefrigeranteManipulado, IsRecuperacion);
+                InsertarOperaciones(operacion);
+
+                MessageBox.Show(String.Format("Registro {0} insertado", OperarioId), "Confirmar", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("No tiene permisos",
+                    "Gestor de Refrigerantes",
+                    MessageBoxButton.OKCancel,
+                    MessageBoxImage.Question);
+            }
         }
         private void PerformCargarOperaciones(object? parameter = null)
         {
@@ -451,6 +494,32 @@ namespace Refrigerantes.ViewModel
                 Operarios = new ObservableCollection<OperarioDTO>(operariosList);
             }
         }
+        private void CargarOperarioLogeado()
+        {
+            using (OperarioADO operarioADO = new())
+            {
+                if (Thread.CurrentPrincipal.Identity.Name == null)
+                {
+                    MessageBox.Show("Operario no encontrado");
+                }
+                else
+                {
+                    int id = Convert.ToInt32(Thread.CurrentPrincipal.Identity.Name);
 
+                    OperarioLogeado = operarioADO.OperarioPorIdADO(id);
+
+                    if (OperarioLogeado.CategoriaProfesionalId_DTO != 5 || OperarioLogeado.CategoriaProfesionalId_DTO != 4)
+                    {
+                        OperarioConPermisos = false;
+                    }
+
+                    if (OperarioLogeado == null)
+                    {
+                        MessageBox.Show("Operario no encontrado");
+                        Application.Current.Shutdown();
+                    }
+                }
+            }
+        }
     }
 }

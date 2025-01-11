@@ -23,6 +23,7 @@ namespace Refrigerantes.ViewModel
         private string mensajeError;
         private bool visible = true;
         public int intentosLogin = 0;
+        private const int MAXIMO_INTENTOS_LOGIN = 3;
 
         public OperarioDTO Operario
         {
@@ -72,7 +73,7 @@ namespace Refrigerantes.ViewModel
 
         private bool CanExecuteLoginCommand(object obj)
         {
-            Debug.WriteLine("Can execute LOGIN");
+            
             bool valid;
 
             if (Operario == null || Password == null || Password.Length < 3)
@@ -92,9 +93,9 @@ namespace Refrigerantes.ViewModel
             MensajeError = string.Empty;
             OperarioDTO? operarioSeleccionado = OperarioPorId(Operario.OperarioId_DTO);
 
-            //MensajeError = "Email de " + operarioSeleccionado.Nombre_DTO + operarioSeleccionado.Email_DTO;
+            MensajeError = "Email de " + operarioSeleccionado.Nombre_DTO + operarioSeleccionado.Email_DTO;
 
-            if (intentosLogin < 10)
+            if (intentosLogin < MAXIMO_INTENTOS_LOGIN)
             {
                 if (operarioSeleccionado != null && operarioSeleccionado.Password_DTO.ToLower().Equals(BitConverter.ToString(Password).Replace("-", "").ToLower()))
                 {

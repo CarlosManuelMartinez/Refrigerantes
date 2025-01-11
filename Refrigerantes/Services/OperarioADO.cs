@@ -49,6 +49,7 @@ namespace Refrigerantes.Services
                 return new OperarioDTO
                 {
                     OperarioId_DTO = operario.OperarioId,
+                    Nombre_DTO= operario.Nombre,
                     Dni_DTO = operario.Dni,
                     Apellido1_DTO = operario.Apellido1,
                     Apellido2_DTO = operario.Apellido2,

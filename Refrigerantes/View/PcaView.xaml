@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Refrigerantes.View.PcaView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:interactiv="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:Refrigerantes.View"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <!--DATAGRID PCA-->
+    <StackPanel>
+
+        
+        <TextBlock Text="{Binding FechaFormateada}"
+                    FontSize="15"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Left"
+                    Margin="10,100,0,0" Background="{StaticResource colorFondo}" Foreground="{StaticResource colorTextosBotones}"/>
+        <GroupBox  x:Name="PCA" Header ="PCA e Impuestos"  Margin="10" Background="{StaticResource colorFondo}" Foreground="{StaticResource colorTextosBotones}">
+            <DataGrid x:Name="DataGridOperarios" AutoGenerateColumns="False"
+                      ItemsSource="{Binding TablaImpuestos}"
+                      CanUserDeleteRows="false"
+                      CanUserAddRows="False"
+                      CanUserResizeRows="False"
+                      CanUserResizeColumns="False"
+                      Margin="10"
+                      IsReadOnly="True"
+                      HorizontalScrollBarVisibility="Auto"
+                      SelectionMode="Single"  >
+               
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Gas Refrigerante"
+                                        Binding="{Binding Path=id}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Gas Refrigerante"
+                                        Binding="{Binding Path=nombre}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="PCA (Potencial de Calentamiento Atmosférico)"
+                                        Binding="{Binding Path=pca}" Width="260" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Impuesto por Kg"
+                                        Binding="{Binding Path=impuesto}" Width="260" IsReadOnly="True"/>
+                </DataGrid.Columns>
+
+            </DataGrid>
+        </GroupBox>
+    </StackPanel>
+</UserControl>

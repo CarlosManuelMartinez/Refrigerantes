@@ -30,6 +30,9 @@
         <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
             <local:HomeView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewModel:ImpuestosViewModel}">
+            <local:PcaView/>
+        </DataTemplate>
     </Window.Resources>
 
     <!--BORDE PARA LA IMAGEN -->
@@ -122,14 +125,14 @@
                         </StackPanel>
                     </Button>
 
-                    <!--BOTON IMPUESTOS-->
+                    <!--BOTON PCA-->
                     <Button Style="{StaticResource botonesMenu}"
                             Tag="{StaticResource colorBordes}"
-                            Command ="{Binding MostrarInformesViewCommand}">
+                            Command ="{Binding MostrarImpuestosViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Resources/icon_informes.png" Style="{StaticResource menuBotonIcono}"/>
-                            <TextBlock Text="IMPUESTOS" Style="{StaticResource menuBotonTexto}"/>
+                            <TextBlock Text="PCA ACTUALIZADOS" Style="{StaticResource menuBotonTexto}"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -204,14 +207,26 @@
                                 Height="50"
                                 Margin="10,0,10,0"/>-->
                             </Border>
-
                             <TextBlock Text="{Binding Operario.Nombre_DTO}"
                                        Foreground="{StaticResource colorTextosBotones}"
                                        FontSize="20"
                                        FontWeight="Medium"
-                                       FontFamily="Century Gothic"
+                                       FontFamily="Arial"
                                        VerticalAlignment="Center"
-                                       HorizontalAlignment="Center"></TextBlock>
+                                       HorizontalAlignment="Center">
+
+                            </TextBlock>
+                            <TextBlock Text="{Binding Operario.Apellido1_DTO}"
+                                       Foreground="{StaticResource colorTextosBotones}"
+                                       Margin="5"
+                                       FontSize="20"
+                                       FontWeight="Medium"
+                                       FontFamily="Arial"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center">
+
+                            </TextBlock>
+
 
                         </StackPanel>
 

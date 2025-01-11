@@ -50,7 +50,7 @@ namespace Refrigerantes.ViewModel
         {
             CargarOperarios();
             CargarNombrePrimerOperarios();  
-            //CargarCommand = new RelayCommand(PerformCargarOperarios);
+            //NotificarComand = new RelayCommand(PerformCargarOperarios);
            PerformCargarOperarios();
 
         }

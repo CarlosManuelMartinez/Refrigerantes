@@ -40,7 +40,6 @@
 
     <!--Icono del boton Menu-->
     <Style x:Key="menuBotonIcono" TargetType="Image">
-        <!--<Setter Property="Foreground" Value="{Binding Path=Tag,RelativeSource={RelativeSource AncestorType=RadioButton}}"/>-->
         <Setter Property="Width" Value="30"/>
         <Setter Property="Height" Value="22"/>
         <Setter Property="Margin" Value="35,0,20,0"/>
@@ -50,7 +49,7 @@
 
     <!--boton menu texto-->
     <Style x:Key="menuBotonTexto" TargetType="TextBlock">
-        <Setter Property="Foreground" Value="{Binding Path=Tag,RelativeSource={RelativeSource AncestorType=RadioButton}}"/>
+        <Setter Property="Foreground" Value="Black"/>
         <Setter Property="FontFamily" Value="Century Gothic"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="FontSize" Value="13.5"/>

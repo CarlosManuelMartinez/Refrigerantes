@@ -69,9 +69,9 @@
         </Grid>
 
 
-        <StackPanel Grid.Row="1" VerticalAlignment="Stretch">
+        <StackPanel Name="StackName" Grid.Row="1" VerticalAlignment="Stretch">
             <!-- Fondo del StackPanel -->
-            <Border Grid.Row="1" Background="{StaticResource colorFondo1}"/>
+            <Border Name="BorderName3" Grid.Row="1" Background="{StaticResource colorFondo1}"/>
 
             <!-- Contenedor Grid para distribuir los gráficos -->
             <Grid Background="Transparent" Grid.Row="1" VerticalAlignment="Stretch">
@@ -81,20 +81,21 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Primer gráfico: PieChart -->
-                <Border Background="Azure" Grid.Column="0" Margin="10"
+                <Border Name="BorderPie" Background="Azure" Grid.Column="0" Margin="10"
                         BorderBrush="DarkBlue" BorderThickness="2"
                         VerticalAlignment="Stretch">
                     <livecharts:PieChart Series="{Binding PieSeriesCollection}"
                                          Margin="10"
                                          Height="350"
                                          Width="380"
+                                         AnimationsSpeed="00:00:00.600"
                                          LegendLocation="Bottom"
                                          VerticalAlignment="Stretch">
                     </livecharts:PieChart>
                 </Border>
 
                 <!-- Segundo gráfico: CartesianChart -->
-                <Border Background="Azure" Grid.Column="1" Margin="10"
+                <Border Name="BorderName2" Background="Azure" Grid.Column="1" Margin="10"
                         BorderBrush="DarkBlue" BorderThickness="2"
                         VerticalAlignment="Stretch">
                     <livecharts:CartesianChart Series="{Binding CartesianSeriesCollection}"
@@ -102,32 +103,36 @@
                                                Margin="10"
                                                Height="350"
                                                Width="380"
+                                               AnimationsSpeed="00:00:00.600"
                                                LegendLocation="Bottom"
                                                VerticalAlignment="Stretch">
                         <livecharts:CartesianChart.AxisX>
-                            <livecharts:Axis Title="Operaciones por Operario"
-                                             Labels="{Binding BarLabels}"
+                            <livecharts:Axis Title="Operario"
                                              LabelsRotation="15" />
                         </livecharts:CartesianChart.AxisX>
+                        <livecharts:CartesianChart.AxisY>
+                            <livecharts:Axis Title="Operaciones"
+                                             LabelsRotation="15" />
+                        </livecharts:CartesianChart.AxisY>
                     </livecharts:CartesianChart>
+
                 </Border>
             </Grid>
         </StackPanel>
-
-
 
         <!--BOTON NOTIFICAR-->
         <StackPanel
             Height="30"
             Grid.Row="2"
             Orientation="Horizontal"
-            HorizontalAlignment="Right">
+            HorizontalAlignment="Right"
+            >
 
             <Button Style="{StaticResource actionButton}"
                     x:Name="btNotificar"
                     Height="30"
                     Width="80"
-                    Command="{Binding LimpiarCommand}" Margin="5,0,10,0">
+                    Command="{Binding NotificarComand}" Margin="5,0,10,0">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Notificar"
                                Style="{StaticResource actionButtonText}"
@@ -135,7 +140,7 @@
                 </StackPanel>
             </Button>
         </StackPanel>
-
     </Grid>
+
 
 </UserControl>

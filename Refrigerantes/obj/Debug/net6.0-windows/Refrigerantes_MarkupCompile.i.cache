@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\carlo\source\repos\Refrigerantes\Refrigerantes\App.xaml
-131794012007
+14450186292
 
-60-584319099
-235-1380405360
-CustomControl\DatosMuestra.xaml;CustomControl\PasswordEnlazable.xaml;MainWindow.xaml;Styles\Botones.xaml;Styles\Buttons.xaml;Styles\Colores.xaml;Styles\Tipografia.xaml;View\HomeView.xaml;View\LoginView.xaml;View\OperacionDeCargaView.xaml;View\OperariosView.xaml;View\RefrigerantesView.xaml;View\VentanaPrincipalView.xaml;
+641691840988
+236-671167629
+CustomControl\DatosMuestra.xaml;CustomControl\PasswordEnlazable.xaml;MainWindow.xaml;Styles\Botones.xaml;Styles\Buttons.xaml;Styles\Colores.xaml;Styles\Tipografia.xaml;View\HomeView.xaml;View\LoginView.xaml;View\OperacionDeCargaView.xaml;View\OperariosView.xaml;View\PcaView.xaml;View\RefrigerantesView.xaml;View\VentanaPrincipalView.xaml;
 
-True
+False
 

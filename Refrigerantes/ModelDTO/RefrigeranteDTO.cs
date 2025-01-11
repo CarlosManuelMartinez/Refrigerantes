@@ -42,7 +42,6 @@ namespace Refrigerantes.ModelDTO
                 Co2eq = this.Co2eq_DTO,
                 Clase = this.Clase_DTO,
                 Grupo = this.Grupo_DTO,
-
             };
             return result;
         }
