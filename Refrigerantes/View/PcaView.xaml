@@ -30,14 +30,14 @@
                       SelectionMode="Single"  >
                
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Gas Refrigerante"
-                                        Binding="{Binding Path=id}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="IdRefrigerante"
+                                        Binding="{Binding Path=id}" Width="*" IsReadOnly="True" Visibility="Hidden"/>
                     <DataGridTextColumn Header="Gas Refrigerante"
                                         Binding="{Binding Path=nombre}" Width="*" IsReadOnly="True"/>
                     <DataGridTextColumn Header="PCA (Potencial de Calentamiento Atmosférico)"
-                                        Binding="{Binding Path=pca}" Width="260" IsReadOnly="True"/>
+                                        Binding="{Binding Path=pca}" Width="*" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Impuesto por Kg"
-                                        Binding="{Binding Path=impuesto}" Width="260" IsReadOnly="True"/>
+                                        Binding="{Binding Path=impuesto}" Width="*" IsReadOnly="True"/>
                 </DataGrid.Columns>
 
             </DataGrid>

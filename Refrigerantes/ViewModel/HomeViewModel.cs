@@ -23,19 +23,14 @@ namespace Refrigerantes.ViewModel
         private string fechaFormateada;
         private DateTime fechaActual;
         private ConsumirApi consumirApi = new ConsumirApi();
-
-
         private SeriesCollection pieSeriesCollection;
         private SeriesCollection cartesianSeriesCollection;
         private ObservableCollection<string> barLabels;
         private List<OperacionDeCargaDTO> operaciones;
         private List<OperarioDTO> operarios;
-        private List<InstalacionDTO> l_instalacionesEnRiesgo;
         private List<InstalacionDTO> l_instalaciones;
         private List<ClienteDTO> clientes;
-
         public ICommand NotificarComand { get; }
-
         private int n_instalacionesEnRiesgo;
         IEnumerable<object> instalacionesEnRiesgo;
         private int n_instalacionesMasEco;

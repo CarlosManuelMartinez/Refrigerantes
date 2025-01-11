@@ -436,7 +436,7 @@ namespace Refrigerantes.ViewModel
 
             if (!string.IsNullOrEmpty(palabraClaveLimpia))
             {
-                TablaOperaciones.DefaultView.RowFilter = String.Format("Modelo like '%{0}%' ", palabraClaveLimpia);
+                TablaOperaciones.DefaultView.RowFilter = String.Format("Operario like '%{0}%' ", palabraClaveLimpia);
             }
             else
             {
