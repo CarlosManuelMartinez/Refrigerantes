@@ -44,8 +44,8 @@
     <StackPanel Background="Transparent">
         <TextBlock Text="OPERACIONES"
                    Foreground="White"
-                   Margin="15,0,0,0" 
-                   HorizontalAlignment="Left" 
+                   Margin="15,0,0,0"
+                   HorizontalAlignment="Left"
                    VerticalAlignment="Center" />
         <!--BUSCADOR-->
         <GroupBox Name="Buscador" Grid.Row="0"
@@ -94,11 +94,11 @@
                     <DataGridTextColumn Header="Descripción" Binding="{Binding Path=Descripcion}"  Width="100" IsReadOnly="True" Visibility="Hidden"/>
                     <DataGridTextColumn Header="Tipo carga" Binding="{Binding Path=TipoCarga}"  Width="100" IsReadOnly="True" Visibility="Hidden"/>
 
-                    <DataGridTextColumn Header="NºSerie equipo" Binding="{Binding Path=Modelo}" Width="100" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Operario" Binding="{Binding Path=Operario}" Width="100" IsReadOnly="True" />
-                    <DataGridTextColumn Header="Fecha" Binding="{Binding Path=FechaOperacion}"  Width="100" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Refrigerante Manipulado" Binding="{Binding Path=RefrigeranteManipulado}"  Width="200" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Recuperación" Binding="{Binding Path=IsRecuperacion}" Width="100" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="NºSerie equipo" Binding="{Binding Path=Modelo}" Width="*" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Operario" Binding="{Binding Path=Operario}" Width="*" IsReadOnly="True" />
+                    <DataGridTextColumn Header="Fecha" Binding="{Binding Path=FechaOperacion}"  Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Refrigerante Manipulado" Binding="{Binding Path=RefrigeranteManipulado}"  Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Recuperación" Binding="{Binding Path=IsRecuperacion}" Width="*" IsReadOnly="True"/>
 
 
 

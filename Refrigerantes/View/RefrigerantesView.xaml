@@ -88,9 +88,10 @@
 
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Id" Binding="{Binding Path=RefrigeranteId}" Width="150"  IsReadOnly="True" Visibility="Hidden"/>
-                    <DataGridTextColumn Header="Nombre" Binding="{Binding Path=Nombre}" Width="150" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Co2Eq" Binding="{Binding Path=Co2Eq}" Width="150" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Clase" Binding="{Binding Path=Clase}"  Width="150" IsReadOnly="True"/>
+                   
+                     <DataGridTextColumn Header="Nombre" Binding="{Binding Path=Nombre}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Co2Eq" Binding="{Binding Path=Co2Eq}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Clase" Binding="{Binding Path=Clase}"  Width="*" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Grupo" Binding="{Binding Path=Grupo}"  Width="*" IsReadOnly="True" />
 
                     <!--BOTON MODIFICAR-->

@@ -93,11 +93,11 @@
 
 
 
-                    <DataGridTextColumn Header="Nombre" Binding="{Binding Path=Nombre}" Width="200" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Primer Apellido" Binding="{Binding Path=Apellido1}" Width="200" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Segundo Apellido" Binding="{Binding Path=Apellido2}"  Width="200" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Puesto" Binding="{Binding Path=CategoriaProfesional}"  Width="200" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="CategoriaId" Binding="{Binding Path=CategoriaId}" Width="*" IsReadOnly="True"  />
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding Path=Nombre}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Primer Apellido" Binding="{Binding Path=Apellido1}" Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Segundo Apellido" Binding="{Binding Path=Apellido2}"  Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Puesto" Binding="{Binding Path=CategoriaProfesional}"  Width="*" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="CategoriaId" Binding="{Binding Path=CategoriaProfesional}" Width="*" IsReadOnly="True"  />
 
 
                     <!--BOTON MODIFICAR-->

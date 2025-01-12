@@ -354,10 +354,10 @@ namespace Refrigerantes.ViewModel
             }
             else
             {
-                MessageBox.Show("No tiene permisos",
-                    "Gestor de Refrigerantes",
-                    MessageBoxButton.OKCancel,
-                    MessageBoxImage.Question);
+                MessageBox.Show("No tiene permisos para realizar esta acción.",
+                                    "Advertencia - Gestor de Refrigerantes",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
             }
         }
 
@@ -373,10 +373,10 @@ namespace Refrigerantes.ViewModel
             }
             else
             {
-                MessageBox.Show("No tiene permisos",
-                    "Gestor de Refrigerantes",
-                    MessageBoxButton.OKCancel,
-                    MessageBoxImage.Question);
+                MessageBox.Show("No tiene permisos para realizar esta acción.",
+                                    "Advertencia - Gestor de Refrigerantes",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
             }
         }
         private void PerformCargarOperaciones(object? parameter = null)
