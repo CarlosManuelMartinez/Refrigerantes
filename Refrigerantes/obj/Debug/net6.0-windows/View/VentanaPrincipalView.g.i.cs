@@ -111,7 +111,7 @@ namespace Refrigerantes.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Refrigerantes;V1.0.0.0;component/view/ventanaprincipalview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Refrigerantes;component/view/ventanaprincipalview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\View\VentanaPrincipalView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -508,9 +508,13 @@ namespace Refrigerantes.ViewModel
 
                     OperarioLogeado = operarioADO.OperarioPorIdADO(id);
 
-                    if (OperarioLogeado.CategoriaProfesionalId_DTO != 5 || OperarioLogeado.CategoriaProfesionalId_DTO != 4)
+                    if (OperarioLogeado.CategoriaProfesionalId_DTO != 5 && OperarioLogeado.CategoriaProfesionalId_DTO != 4)
                     {
                         OperarioConPermisos = false;
+                    }
+                    else
+                    {
+                        OperarioConPermisos = true;
                     }
 
                     if (OperarioLogeado == null)

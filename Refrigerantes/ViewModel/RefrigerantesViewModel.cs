@@ -151,6 +151,7 @@ namespace Refrigerantes.ViewModel
 
         public RefrigerantesViewModel()
         {
+            CargarOperarioLogeado();
             GuardarCommand = new RelayCommand(PerformInsertarRefrigerante, CanExecuteInsertarRefrigerante);
             BorrarCommand = new RelayCommand(PerformBorrarRefrigerante);
             ModificarCommand = new RelayCommand(PerformModificarRefrigerante);
@@ -209,7 +210,7 @@ namespace Refrigerantes.ViewModel
         }
         private void PerformModificarRefrigerante(object obj)
         {
-            if (operarioConPermiso)
+            if (OperarioConPermisos)
             {
                 var result = MessageBox.Show("¿Desea realmente modificar este registro?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
@@ -330,9 +331,13 @@ namespace Refrigerantes.ViewModel
 
                     OperarioLogeado = operarioADO.OperarioPorIdADO(id);
 
-                    if (OperarioLogeado.CategoriaProfesionalId_DTO != 5 || OperarioLogeado.CategoriaProfesionalId_DTO != 4)
+                    if (OperarioLogeado.CategoriaProfesionalId_DTO != 5 && OperarioLogeado.CategoriaProfesionalId_DTO != 4)
                     {
                         OperarioConPermisos = false;
+                    }
+                    else
+                    {
+                        OperarioConPermisos = true;
                     }
 
                     if (OperarioLogeado == null)

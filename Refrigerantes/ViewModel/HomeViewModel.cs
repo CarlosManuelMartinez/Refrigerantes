@@ -9,7 +9,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Refrigerantes.ViewModel
@@ -30,6 +32,8 @@ namespace Refrigerantes.ViewModel
         private List<OperarioDTO> operarios;
         private List<InstalacionDTO> l_instalaciones;
         private List<ClienteDTO> clientes;
+        private OperarioDTO operarioLogeado;
+        private bool operarioConPermiso;
         public ICommand NotificarComand { get; }
         private int n_instalacionesEnRiesgo;
         IEnumerable<object> instalacionesEnRiesgo;
@@ -67,6 +71,22 @@ namespace Refrigerantes.ViewModel
             set
             {
                 operaciones = value;
+            }
+        }
+        public bool OperarioConPermisos
+        {
+            get { return operarioConPermiso; }
+            set
+            {
+                operarioConPermiso = value;
+            }
+        }
+        public OperarioDTO OperarioLogeado
+        {
+            get { return operarioLogeado; }
+            set
+            {
+                operarioLogeado = value;
             }
         }
         public decimal MediaCo2
@@ -158,7 +178,7 @@ namespace Refrigerantes.ViewModel
         {
             RealizarProcesoAsincrono();
             NotificarComand = new RelayCommand(PerformNotificar);
-
+            CargarOperarioLogeado();
             CargarInstalaciones();
             CargarClientes();
             CargarOperaciones();
@@ -182,30 +202,47 @@ namespace Refrigerantes.ViewModel
 
         private async void PerformNotificar(object? parameter = null)
         {
-
-            List<InstalacionDTO> instalacionesConMasDeDosOperaciones = new List<InstalacionDTO>();
-
-            foreach (InstalacionDTO ins in l_instalaciones)
+            if (OperarioConPermisos)
             {
-                int contadorOperaciones = 0;
-
-                foreach (EquipoDTO equipo in ins.Equipos_DTO)  
+                var result = MessageBox.Show("¿Desea realmente notificar a los clientes ?", "Confirmar", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
                 {
-                    var operacionesDeEquipo = operaciones.Where(op => op.EquipoId_DTO == equipo.EquipoId);
+                    List<InstalacionDTO> instalacionesConMasDeDosOperaciones = new List<InstalacionDTO>();
 
-                    contadorOperaciones += operacionesDeEquipo.Count();
+                    foreach (InstalacionDTO ins in l_instalaciones)
+                    {
+                        int contadorOperaciones = 0;
+
+                        foreach (EquipoDTO equipo in ins.Equipos_DTO)
+                        {
+                            var operacionesDeEquipo = operaciones.Where(op => op.EquipoId_DTO == equipo.EquipoId);
+
+                            contadorOperaciones += operacionesDeEquipo.Count();
+                        }
+
+                        if (contadorOperaciones > TARGET_RIESGO)
+                        {
+                            instalacionesConMasDeDosOperaciones.Add(ins);
+                        }
+                    }
+
+                    Notificaciones notificaciones = new Notificaciones(instalacionesConMasDeDosOperaciones, operaciones);
+                    notificaciones.EnviarNotificaciones();
+
                 }
-
-                if (contadorOperaciones > TARGET_RIESGO)
+                else
                 {
-                    instalacionesConMasDeDosOperaciones.Add(ins);
+
                 }
             }
+            else
+            {
+                MessageBox.Show("No tiene permisos para realizar esta acción.",
+                                    "Advertencia - Gestor de Refrigerantes",
+                MessageBoxButton.OK,
+                MessageBoxImage.Warning);
 
-
-            Notificaciones notificaciones = new Notificaciones(instalacionesConMasDeDosOperaciones, operaciones);
-            notificaciones.EnviarNotificaciones();
-            
+            }
         }
 
         public void CargarClientes()
@@ -387,6 +424,38 @@ namespace Refrigerantes.ViewModel
             await consumirApi.CargarImpuestosApi();
 
             List<PcaImpuestos> pcaImpuestos = consumirApi.PcaImpuestos;
+        }
+
+        private void CargarOperarioLogeado()
+        {
+            using (OperarioADO operarioADO = new())
+            {
+                if (Thread.CurrentPrincipal.Identity.Name == null)
+                {
+                    MessageBox.Show("Operario no encontrado");
+                }
+                else
+                {
+                    int id = Convert.ToInt32(Thread.CurrentPrincipal.Identity.Name);
+
+                    OperarioLogeado = operarioADO.OperarioPorIdADO(id);
+
+                    if (OperarioLogeado.CategoriaProfesionalId_DTO != 5 && OperarioLogeado.CategoriaProfesionalId_DTO != 4)
+                    {
+                        OperarioConPermisos = false;
+                    }
+                    else
+                    {
+                        OperarioConPermisos = true;
+                    }
+
+                    if (OperarioLogeado == null)
+                    {
+                        MessageBox.Show("Operario no encontrado");
+                        Application.Current.Shutdown();
+                    }
+                }
+            }
         }
     }
 }
